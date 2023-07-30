@@ -1,5 +1,5 @@
 :root {
-  --main_color: #f05e1d;
+  --main_color: #00b96b;
 }
 * {
   padding: 0;
@@ -7,28 +7,84 @@
   box-sizing: border-box;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Inconsolata", monospace;
+  font-family: "Kanit", sans-serif;
+  font-family: "Lumanosimo", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(230, 230, 230);
+  /* background-color: rgb(245, 245, 245); */
+  background-image: linear-gradient(
+    to left,
+    var(--main_color),
+    rgb(245, 245, 245)
+  );
+}
+/* The scrollbar itself */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+/* Track (background) of the scrollbar */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Change this to the desired track color */
+}
+
+/* Handle (thumb) of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: #c9c9c9; /* Change this to the desired handle color */
+  border-radius: 5px; /* Rounded corners for the handle */
+}
+
+/* Custom scrollbar for Firefox and some other browsers that support scrollbar-color */
+/* These styles will only be applied in supported browsers */
+
+/* The scrollbar itself */
+* {
+  scrollbar-width: thin; /* Set the scrollbar width */
+  scrollbar-color: #c9c9c9 #f1f1f1; /* Set the handle and track colors */
+}
+a {
+  color: unset;
+  text-decoration: none;
 }
 .navbar {
-  height: 60px;
+  height: 80px;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  z-index: 100;
+  transition: all 0.5s ease-in;
+}
+.navbar_bg.navbar {
   background-color: white;
-  line-height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  animation: dropFromTop 0.5s ease;
+}
+
+@keyframes dropFromTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 .navbar_wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 26px;
+  width: 100%;
 }
 .navbar_list {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   list-style: none;
   color: var(--main_color);
 }
@@ -36,14 +92,142 @@ body {
   color: var(--main_color);
 }
 .navbar_logo {
-  height: 40px;
-  width: auto;
+  font-family: "Inconsolata", monospace;
+  font-family: "Kanit", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-family: "Permanent Marker", cursive;
+  color: var(--main_color);
+  line-height: 1;
+  font-size: 30px;
+}
+.navbar_item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+}
+.navbar_bg.navbar .navbar_item {
+  color: var(--main_color);
 }
 .navbar_icon {
-  font-size: 24px;
+  font-size: 16px;
+}
+.user_container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.userIcon_circle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--main_color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user_container_text a {
+  font-size: 12px;
+  text-decoration: none;
+}
+.login_msg_error {
+  color: red;
 }
 .page_content {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.login-form-container,
+.signup-form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  gap: 16px;
+  padding: 16px;
+}
+.login-form,
+.signup-form {
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.login-form > * {
+  width: 100%;
+}
+.login-form button,
+.signup-form button {
+  width: 100%;
+}
+.login-image,
+.signup-image {
+  width: 100%;
+  margin: 0 auto;
+}
+.forget_password_link {
+  text-align: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+  color: var(--main_color);
+}
+.forget_password_link:hover {
+  text-decoration: underline;
+}
+.forget_password_title {
+  text-align: center;
+  margin: 20px 0;
+}
+.forget_password_form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/*********************************/
+
+.user-icon-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #f9f9f9;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0s linear 0.2s;
+}
+
+.dropdown-content.active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.dropdown-item {
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.dropdown-item:hover {
+  background-color: var(--main_color);
+  color: white;
+}
+/*********************************/
+
+@media only screen and (max-width: 768px) {
+  .login-image,
+  .signup-image {
+    height: 30vh;
+  }
 }
