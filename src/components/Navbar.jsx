@@ -1,19 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import {
-  ShoppingCartOutlined,
-  HeartOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+  FaMoon,
+  FaSun,
+  FaSignOutAlt,
+  FaShoppingCart,
+  FaHeart,
+  FaUser,
+  FaEnvelope,
+  FaPhoneAlt,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
+import DropDown from "./DropDown";
+import DefaultModal from "./DefaultModal"
 
-const Navbar = ({ user }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isScroll, setIsScroll] = useState(false);
-  const [returnToTop, setReturnToTop] = useState(false);
+const Navbar = ({ user, changeColors, darkMode }) => {
   const navigate = useNavigate();
-  const dropdownRef = useRef(null);
   const auth = firebase.auth();
 
   const getUserName = (user) => {
@@ -21,32 +24,6 @@ const Navbar = ({ user }) => {
       return user.email.substring(0, user.email.indexOf("@"));
     }
   };
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    window.addEventListener("scroll", function () {
-      const scrollHeight = window.scrollY;
-      if (scrollHeight > 200) {
-        setIsScroll(true);
-        setReturnToTop(false);
-      } else {
-        setIsScroll(false);
-        setReturnToTop(true);
-      }
-    });
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
 
   const handleLogout = async () => {
     try {
@@ -57,51 +34,48 @@ const Navbar = ({ user }) => {
     }
   };
   return (
-    <nav
-      className={`navbar ${isScroll && "navbar_bg"} ${
-        returnToTop && "navbar_to_top"
-      }`}
-    >
+    <nav className="navbar">
       <div className="navbar_wrapper">
-        <Link to="/">
-          <div className="navbar_logo">Serag</div>
-        </Link>
-        <ul className="navbar_list">
-          <div
-            className="user-icon-container"
-            onClick={toggleDropdown}
-            ref={dropdownRef}
-          >
-            <div className="navbar_item">
-              <h5>User</h5>
-              <UserOutlined className="navbar_icon" />
-            </div>
-            <div
-              className={`dropdown-content ${isDropdownOpen ? "active" : ""}`}
-            >
-              <Link to="/user">
-                <div className="dropdown-item">{getUserName(user)}</div>
-              </Link>
-
-              <div className="dropdown-item" onClick={handleLogout}>
-                Log out
-              </div>
-            </div>
+        <div className="top_navbar">
+          <div className="left_nav">
+            <Link to="+9123 456 87" className="phone_nav">
+              <FaPhoneAlt className="left_nav_navbar_icon" />
+              <small>+9123 456 87</small>
+            </Link>
+            <Link to="creto@gmail.com" className="mail_nav">
+              <FaEnvelope className="left_nav_navbar_icon" />
+              <small>creto@gmail.com</small>
+            </Link>
           </div>
-
-          <Link to="/wishlist">
-            <div className="navbar_item">
-              <h5>Wishlist</h5>
-              <HeartOutlined className="navbar_icon" />
-            </div>
-          </Link>
-          <Link to="/cart">
-            <div className="navbar_item">
-              <h5>Cart</h5>
-              <ShoppingCartOutlined className="navbar_icon" />
-            </div>
-          </Link>
-        </ul>
+          <div className="right_nav">
+            <button onClick={changeColors}>
+              {darkMode ? (
+                <FaSun className="navbar_icon" />
+              ) : (
+                <FaMoon className="navbar_icon" />
+              )}
+            </button>
+            <Link to="/wishlist"><FaHeart className="navbar_icon" /></Link>
+            <Link  to="/user"><FaUser className="navbar_icon" /></Link>
+            <Link to="/cart"><FaShoppingCart className="navbar_icon" /></Link>
+            <DefaultModal darkMode={darkMode} text={<FaSignOutAlt className="navbar_icon" />} handleOkModal={handleLogout} modalTitle="Are you sure you want log out!" />
+          </div>
+        </div>
+        <div className="main_navbar">
+          <div className="left_nav">
+            <Link to="/">
+              <div className="navbar_logo">Serag</div>
+            </Link>
+          </div>
+          <div className="right_nav">
+            <DropDown text="Home" />
+            <Link className="main_nav_item">Services</Link>
+            <Link className="main_nav_item">Shop</Link>
+            <Link className="main_nav_item">Gallery</Link>
+            <Link className="main_nav_item">Pages</Link>
+            <Link className="main_nav_item">Contacts</Link>
+          </div>
+        </div>
       </div>
     </nav>
   );

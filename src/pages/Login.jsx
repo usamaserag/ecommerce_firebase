@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import ErrorText from "../components/ErrorText";
 import loginImage from "../assets/images/login_image.svg";
 
-
 const Login = () => {
   const auth = firebase.auth();
   const navigate = useNavigate();
@@ -58,72 +57,74 @@ const Login = () => {
 
   const handleForgetPassword = () => {
     navigate("/forgetpassword");
-  }
+  };
 
   return (
     <div className="login-form-container">
-      <img className="login-image" src={loginImage} alt="logo_image" />
-
-      <Form
-        name="normal_login"
-        className="login-form"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-      >
-        <Form.Item
-          onChange={handleEmailChange}
-          value={email}
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your E-mail!",
-            },
-          ]}
+      <div className="login-image-container">
+        <img className="login-image" src={loginImage} alt="logo_image" />
+      </div>
+      <div className="login-form-side">
+        <h2>Welcome To Serag Store</h2>
+        <Form
+          name="normal_login"
+          className="login-form"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
         >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
-          />
-        </Form.Item>
-        <Form.Item
-          onChange={handlePasswordChange}
-          value={password}
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Password!",
-            },
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-        <ErrorText text={errorMsg} />
-        <p onClick={handleForgetPassword} className="forget_password_link" >Forget password</p>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
+          <Form.Item
+            onChange={handleEmailChange}
+            value={email}
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please input your E-mail!",
+              },
+            ]}
           >
-            Log in
-          </Button>
-        </Form.Item>
-        <Link to="/signup">
-        <Button
-            className="login-form-button"
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username"
+            />
+          </Form.Item>
+          <Form.Item
+            onChange={handlePasswordChange}
+            value={password}
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Password!",
+              },
+            ]}
           >
-            register now
-          </Button>
-        </Link>
-      </Form>
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
+          <ErrorText text={errorMsg} />
+          <p onClick={handleForgetPassword} className="forget_password_link">
+            Forget password
+          </p>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Log in
+            </Button>
+          </Form.Item>
+          <Link to="/signup">
+            <Button className="login-form-button">register now</Button>
+          </Link>
+        </Form>
+      </div>
     </div>
   );
 };

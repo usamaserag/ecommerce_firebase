@@ -2,73 +2,9 @@ import React from "react";
 
 const Products = () => {
   return (
-    <>
+    <div className="content">
       <div>Products</div>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-      <h1>Products</h1>
-
-    </>
+    </div>
   );
 };
 
