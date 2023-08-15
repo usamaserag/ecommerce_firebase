@@ -26,7 +26,6 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
-    // You can also add additional logic here to update any other parts of your app when the mode changes.
   }, [darkMode]);
 
   const toggleDarkMode = () => {
@@ -46,6 +45,7 @@ const App = () => {
       theme={{
         token: {
           colorPrimary: "#00b96b",
+
         },
       }}
     >
@@ -70,7 +70,7 @@ const App = () => {
               />
               <Route path="/cart" element={<Cart />} />
               <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/user" element={<Profile />} />
+              <Route path="/user" element={<Profile user={user} />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgetpassword" element={<ForgetPassword />} />
             </Routes>

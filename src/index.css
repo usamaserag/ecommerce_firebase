@@ -50,7 +50,6 @@ body {
 a {
   color: unset;
   text-decoration: none;
-  cursor: pointer;
   color: var(--text-color);
   height: 100%;
   display: flex;
@@ -126,8 +125,9 @@ button {
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: unset
 }
-.main_nav_item::before {
+.main_nav_item_text::after {
   content: "";
   position: absolute;
   top: 0;
@@ -140,11 +140,12 @@ button {
   transform-origin: center;
 }
 
-.main_nav_item:hover::before {
-  transform: scaleX(1);
-}
-.main_nav_item:hover {
+.main_nav_item_text:hover {
   color: var(--main_color);
+  cursor: pointer;
+}
+.main_nav_item_text:hover::after {
+  transform: scaleX(1);
 }
 .navbar_logo {
   font-family: "Permanent Marker", cursive;
@@ -172,6 +173,7 @@ button {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  height: 100vh;
 }
 .full_page {
   width: 100%;
@@ -212,11 +214,11 @@ button {
 .signup-image-container {
   width: 100%;
   margin: 0 auto;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     -45deg,
     var(--main_color),
     rgb(245, 245, 245)
-  );
+  ); */
   height: 100%;
   padding: 20px;
   display: flex;
@@ -226,6 +228,7 @@ button {
 .login-form-side h2,
 .signup-form-side h2 {
   text-align: center;
+  color: var(--text-color);
 }
 .login-image,
 .signup-image {
@@ -239,10 +242,12 @@ button {
 }
 .forget_password_link:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 .forget_password_title {
   text-align: center;
-  margin: 20px 0;
+  padding-top: 20px;
+  color: var(--text-color);
 }
 .forget_password_form {
   max-width: 800px;

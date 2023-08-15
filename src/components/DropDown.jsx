@@ -39,8 +39,9 @@ const DropDown = ({ text }) => (
   >
     <a href="!#" onClick={(e) => e.preventDefault()}>
       <Space className="main_nav_item">
-        <div>{text}</div>
-        <FaAngleDown />
+        <p className="main_nav_item_text">
+          {text} <FaAngleDown />
+        </p>
       </Space>
     </a>
   </Dropdown>

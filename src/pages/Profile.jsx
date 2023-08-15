@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const Profile = () => {
+const Profile = ({ user }) => {
+  const getUserName = () => {
+    if (user && user !== null) {
+      return user.email.substring(0, user.email.indexOf("@"));
+    }
+  };
+
   return (
-    <div className="content">Profile</div>
-  )
-}
+    <div className="content">
+      <p>Welcome {getUserName()}</p>
+    </div>
+  );
+};
 
-export default Profile
+export default Profile;

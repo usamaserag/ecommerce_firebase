@@ -24,7 +24,7 @@ const ForgetPassword = () => {
     setEmail(value);
   };
   return (
-    <div>
+    <>
       {!isEmailSent ? (
         <>
           <h3 className="forget_password_title">
@@ -72,7 +72,7 @@ const ForgetPassword = () => {
       ) : (
         <p>Password reset email sent. Please check your email inbox.</p>
       )}
-    </div>
+    </>
   );
 };
 

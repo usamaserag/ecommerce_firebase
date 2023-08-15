@@ -13,17 +13,11 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 import DropDown from "./DropDown";
-import DefaultModal from "./DefaultModal"
+import DefaultModal from "./DefaultModal";
 
 const Navbar = ({ user, changeColors, darkMode }) => {
   const navigate = useNavigate();
   const auth = firebase.auth();
-
-  const getUserName = (user) => {
-    if (user && user !== null) {
-      return user.email.substring(0, user.email.indexOf("@"));
-    }
-  };
 
   const handleLogout = async () => {
     try {
@@ -55,10 +49,21 @@ const Navbar = ({ user, changeColors, darkMode }) => {
                 <FaMoon className="navbar_icon" />
               )}
             </button>
-            <Link to="/wishlist"><FaHeart className="navbar_icon" /></Link>
-            <Link  to="/user"><FaUser className="navbar_icon" /></Link>
-            <Link to="/cart"><FaShoppingCart className="navbar_icon" /></Link>
-            <DefaultModal darkMode={darkMode} text={<FaSignOutAlt className="navbar_icon" />} handleOkModal={handleLogout} modalTitle="Are you sure you want log out!" />
+            <Link to="/wishlist">
+              <FaHeart className="navbar_icon" />
+            </Link>
+            <Link to="/user">
+              <FaUser className="navbar_icon" />
+            </Link>
+            <Link to="/cart">
+              <FaShoppingCart className="navbar_icon" />
+            </Link>
+            <DefaultModal
+              darkMode={darkMode}
+              text={<FaSignOutAlt className="navbar_icon" />}
+              handleOkModal={handleLogout}
+              modalTitle="Are you sure you want log out!"
+            />
           </div>
         </div>
         <div className="main_navbar">
@@ -69,11 +74,21 @@ const Navbar = ({ user, changeColors, darkMode }) => {
           </div>
           <div className="right_nav">
             <DropDown text="Home" />
-            <Link className="main_nav_item">Services</Link>
-            <Link className="main_nav_item">Shop</Link>
-            <Link className="main_nav_item">Gallery</Link>
-            <Link className="main_nav_item">Pages</Link>
-            <Link className="main_nav_item">Contacts</Link>
+            <Link className="main_nav_item">
+              <p className="main_nav_item_text">Services</p>
+            </Link>
+            <Link className="main_nav_item">
+              <p className="main_nav_item_text">Shop</p>
+            </Link>
+            <Link className="main_nav_item">
+              <p className="main_nav_item_text">Gallery</p>
+            </Link>
+            <Link className="main_nav_item">
+              <p className="main_nav_item_text">Pages</p>
+            </Link>
+            <Link className="main_nav_item">
+              <p className="main_nav_item_text">Contacts</p>
+            </Link>
           </div>
         </div>
       </div>

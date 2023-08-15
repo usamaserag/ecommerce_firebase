@@ -14,7 +14,6 @@ const DefaultModal = ({ text, modalTitle, handleOkModal, darkMode }) => {
     setIsModalOpen(false);
   };
   return (
-
     <>
       <button onClick={showModal}>{text}</button>
       <Modal
