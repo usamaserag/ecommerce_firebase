@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StateContext } from "../App";
 
-const Profile = ({ user }) => {
+const Profile = () => {
+  const { user } = useContext(StateContext);
   const getUserName = () => {
     if (user && user !== null) {
       return user.email.substring(0, user.email.indexOf("@"));

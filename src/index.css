@@ -54,6 +54,7 @@ a {
   height: 100%;
   display: flex;
   align-items: center;
+  position: relative;
 }
 button {
   border: none;
@@ -64,11 +65,16 @@ button {
   display: flex;
   align-items: center;
 }
+img {
+  width: 100%;
+  height: 100%;
+}
 
 .navbar {
   width: 100%;
   display: flex;
   flex-direction: column;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .navbar_wrapper {
   padding: 0 16px;
@@ -125,7 +131,7 @@ button {
   height: 100%;
   display: flex;
   align-items: center;
-  cursor: unset
+  cursor: unset;
 }
 .main_nav_item_text::after {
   content: "";
@@ -154,6 +160,20 @@ button {
   font-size: 30px;
   letter-spacing: 4px;
 }
+.patch {
+  background-color: var(--main_color);
+  color: var(--text-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  position: absolute;
+  top: 6px;
+  right: -12px;
+}
 .login_msg_error {
   color: red;
 }
@@ -173,7 +193,7 @@ button {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  height: 100vh;
+  min-height: 100vh;
 }
 .full_page {
   width: 100%;
@@ -184,6 +204,7 @@ button {
   min-height: calc(100vh - 120px);
   padding: 0 16px;
   color: var(--text-color);
+  padding: 16px;
 }
 
 .login-form-container,
@@ -355,3 +376,60 @@ button {
   }
 }
 /* *************************** */
+
+.card {
+  padding: 12px;
+  margin: 20px auto;
+  border: 1px solid var(--main_color);
+  border-radius: 5px;
+  max-width: 120px;
+  text-align: center;
+}
+.card div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+.coloredHeart {
+  color: var(--main_color);
+}
+.cards_container {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.product {
+  padding: 12px;
+  border: 1px solid var(--icon_color);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.product_img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+.product-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+.product_page_img {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.product_title,
+.product_description {
+  width: 100%;
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

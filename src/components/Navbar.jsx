@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   FaMoon,
   FaSun,
@@ -14,10 +14,13 @@ import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 import DropDown from "./DropDown";
 import DefaultModal from "./DefaultModal";
+import { StateContext } from "../App";
 
-const Navbar = ({ user, changeColors, darkMode }) => {
+
+const Navbar = ({ changeColors, darkMode }) => {
   const navigate = useNavigate();
   const auth = firebase.auth();
+  const {cartCount, wishlistCount} = useContext(StateContext)
 
   const handleLogout = async () => {
     try {
@@ -51,12 +54,14 @@ const Navbar = ({ user, changeColors, darkMode }) => {
             </button>
             <Link to="/wishlist">
               <FaHeart className="navbar_icon" />
+              {wishlistCount > 0 && <span className="patch">{wishlistCount}</span>}
             </Link>
             <Link to="/user">
               <FaUser className="navbar_icon" />
             </Link>
             <Link to="/cart">
               <FaShoppingCart className="navbar_icon" />
+              {cartCount > 0 && <span className="patch">{cartCount}</span>}
             </Link>
             <DefaultModal
               darkMode={darkMode}
