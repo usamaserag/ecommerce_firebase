@@ -6,7 +6,7 @@ import { FaHeart, FaPlus, FaMinus } from "react-icons/fa";
 import Button from "./Button";
 
 const Product = ({ product }) => {
-    const { wishlistCount, setWishlistCount } =
+    const { setWishlistCount } =
     useContext(StateContext);
   const localStorageKeyWishlist = `wishlist_${product.id}`;
   //   const localStorageKeyCart = `cart_${id}`;
@@ -25,7 +25,9 @@ const Product = ({ product }) => {
 
   const toggleWishlist = () => {
     setIsInWishlist((prevState) => !prevState);
-    wishlistCount === 0 ? setWishlistCount(wishlistCount + 1) : setWishlistCount(wishlistCount - 1)
+    setWishlistCount((prevCount) =>
+      isInWishlist ? prevCount - 1 : prevCount + 1
+    );
   };
 
   //   const toggleCart = () => {
