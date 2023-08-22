@@ -26,8 +26,8 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
-  const [cartCount, setCartCount] = useState(0)
-  const [wishlistCount, setWishlistCount] = useState(0)
+  const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
@@ -46,7 +46,9 @@ const App = () => {
   }
 
   return (
-    <StateContext.Provider value={{ user, cartCount, setCartCount, wishlistCount, setWishlistCount }}>
+    <StateContext.Provider
+      value={{ user, cartCount, setCartCount, wishlistCount, setWishlistCount }}
+    >
       <ConfigProvider
         theme={{
           token: {
@@ -55,14 +57,10 @@ const App = () => {
         }}
       >
         <Router>
-
           <div className={darkMode ? "dark-mode full_page" : "full_page"}>
             <div className="container">
               {user && (
-                <Navbar
-                  changeColors={toggleDarkMode}
-                  darkMode={darkMode}
-                />
+                <Navbar changeColors={toggleDarkMode} darkMode={darkMode} />
               )}
               <Routes>
                 <Route

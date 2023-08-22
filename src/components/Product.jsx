@@ -1,38 +1,28 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
-import { StateContext } from "../App";
-import { FaHeart, FaPlus, FaMinus } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import Button from "./Button";
+import { StateContext } from "../App";
 
-const Product = ({ product }) => {
-    const { setWishlistCount } =
-    useContext(StateContext);
-  const localStorageKeyWishlist = `wishlist_${product.id}`;
-  //   const localStorageKeyCart = `cart_${id}`;
 
+const Product = ({ product, wishlist, addToWishlist }) => {
+  const { setWishlistCount } = useContext(StateContext);
   const [isInWishlist, setIsInWishlist] = useState(
-    localStorage.getItem(localStorageKeyWishlist) === "true"
+    wishlist.some((item) => item.id === product.id)
   );
-  //   const [isInCart, setIsInCart] = useState(
-  //     localStorage.getItem(localStorageKeyCart) === 'true'
-  //   );
 
   useEffect(() => {
-    localStorage.setItem(localStorageKeyWishlist, isInWishlist);
-    //   localStorage.setItem(localStorageKeyCart, isInCart);
-  }, [isInWishlist, localStorageKeyWishlist]);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    setIsInWishlist(wishlist.some((item) => item.id === product.id));
+    setWishlistCount(JSON.parse(localStorage.getItem("wishlist")).length)
+  }, [wishlist, product, setWishlistCount]);
 
   const toggleWishlist = () => {
-    setIsInWishlist((prevState) => !prevState);
-    setWishlistCount((prevCount) =>
-      isInWishlist ? prevCount - 1 : prevCount + 1
-    );
+    const updatedWishlist = !isInWishlist;
+    setIsInWishlist(updatedWishlist);
+    addToWishlist(product, updatedWishlist);
   };
-
-  //   const toggleCart = () => {
-  //     setIsInCart(prevState => !prevState);
-  //   };
 
   return (
     <div className="product">
@@ -46,8 +36,8 @@ const Product = ({ product }) => {
       <h3 className="product_price">{product.price}</h3>
       <StarRating rating={product.rating.rate} />
       <Button
-        text={<FaHeart className={`${!isInWishlist ? "" : "coloredHeart"}`} />}
-        handleClick={() => toggleWishlist()}
+        text={<FaHeart className={`${isInWishlist ? "coloredHeart" : ""}`} />}
+        handleClick={toggleWishlist}
       />
     </div>
   );

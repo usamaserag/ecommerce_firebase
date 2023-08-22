@@ -74,7 +74,7 @@ img {
   width: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
 }
 .navbar_wrapper {
   padding: 0 16px;
