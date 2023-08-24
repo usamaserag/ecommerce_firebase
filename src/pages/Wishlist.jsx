@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { StateContext } from "../App";
 
 const Wishlist = () => {
-  return (
-    <div  className="content">Wishlist</div>
-  )
-}
+  const { wishlist } = useContext(StateContext);
 
-export default Wishlist
+  return <div className="content">
+    {
+      wishlist.map((item) => (
+        <div>
+          <h3>{item.title}</h3>
+        </div>
+      ))
+    }
+  </div>;
+};
+
+export default Wishlist;

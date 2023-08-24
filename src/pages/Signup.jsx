@@ -52,9 +52,7 @@ const Signup = () => {
       .createUserWithEmailAndPassword(email, password)
       .then((Credentials) => {
         console.log(Credentials);
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
+        navigate("/");
       })
       .catch((error) => {
         const errorMsg = error.message.split(":")[1].split(".")[0].trim();
@@ -68,7 +66,7 @@ const Signup = () => {
         <img className="signup-image" src={signupImage} alt="logo_image" />
       </div>
       <div className="signup-form-side">
-      <h2>Join To Serag Store Now!</h2>
+        <h2>Join To Serag Store Now!</h2>
         <Form
           {...formItemLayout}
           form={form}

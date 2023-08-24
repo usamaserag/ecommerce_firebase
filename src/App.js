@@ -23,18 +23,89 @@ export const StateContext = createContext(null);
 
 const App = () => {
   const [user, loading] = useAuthState(firebase.auth());
+  const userId = user?.uid;
   const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
+    sessionStorage.getItem("darkMode") === "true"
   );
+  const [products, setProducts] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [cart, setCart] = useState([]);
+
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
 
   useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((json) => setProducts(json));
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      const storedWishlist =
+        sessionStorage.getItem(`wishlist_${userId}`) || "[]";
+      if (storedWishlist) {
+        setWishlist(JSON.parse(storedWishlist));
+      }
+      const storedCart = sessionStorage.getItem(`cart_${userId}`) || "[]";
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      }
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId) {
+      sessionStorage.setItem(`wishlist_${userId}`, JSON.stringify(wishlist));
+      setWishlistCount(wishlist.length);
+      sessionStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
+      setCartCount(cart.length);
+    }
+  }, [wishlist, setWishlistCount, userId, cart]);
+
+  useEffect(() => {
+    sessionStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+  };
+
+  const addToWishlist = (product, added) => {
+    if (added) {
+      setWishlist((prevWishlist) => [...prevWishlist, product]);
+    } else {
+      setWishlist((prevWishlist) =>
+        prevWishlist.filter((product_) => product_.id !== product.id)
+      );
+    }
+  };
+
+  const addToCart = (product) => {
+    const existingProduct = cart.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
+    }
+  };
+  const handleRemoveFromCart = (productId) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === productId
+            ? { ...item, quantity: Math.max(0, item.quantity - 1) }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
   };
 
   if (loading) {
@@ -47,7 +118,24 @@ const App = () => {
 
   return (
     <StateContext.Provider
-      value={{ user, cartCount, setCartCount, wishlistCount, setWishlistCount }}
+      value={{
+        darkMode,
+        toggleDarkMode,
+        products,
+        userId,
+        user,
+        cartCount,
+        setCartCount,
+        wishlist,
+        cart,
+        setCart,
+        setWishlist,
+        wishlistCount,
+        setWishlistCount,
+        addToWishlist,
+        addToCart,
+        handleRemoveFromCart,
+      }}
     >
       <ConfigProvider
         theme={{
@@ -59,9 +147,7 @@ const App = () => {
         <Router>
           <div className={darkMode ? "dark-mode full_page" : "full_page"}>
             <div className="container">
-              {user && (
-                <Navbar changeColors={toggleDarkMode} darkMode={darkMode} />
-              )}
+              {user && <Navbar />}
               <Routes>
                 <Route
                   path="/login"

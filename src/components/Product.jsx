@@ -1,22 +1,26 @@
 import React, { useEffect, useState, useContext } from "react";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaPlus, FaMinus } from "react-icons/fa";
 import Button from "./Button";
 import { StateContext } from "../App";
 
-
-const Product = ({ product, wishlist, addToWishlist }) => {
-  const { setWishlistCount } = useContext(StateContext);
+const Product = ({ product }) => {
+  const { addToWishlist, addToCart, handleRemoveFromCart, wishlist, cart, userId } =
+    useContext(StateContext);
   const [isInWishlist, setIsInWishlist] = useState(
     wishlist.some((item) => item.id === product.id)
   );
+  const [isInCart, setIsInCart] = useState(
+    cart.some((item_) => item_.id === product.id)
+  );
 
   useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-    setIsInWishlist(wishlist.some((item) => item.id === product.id));
-    setWishlistCount(JSON.parse(localStorage.getItem("wishlist")).length)
-  }, [wishlist, product, setWishlistCount]);
+    if (userId) {
+      setIsInWishlist(wishlist.some((item) => item.id === product.id));
+      setIsInCart(cart.some((item_) => item_.id === product.id));
+    }
+  }, [wishlist, product, userId, cart]);
 
   const toggleWishlist = () => {
     const updatedWishlist = !isInWishlist;
@@ -24,11 +28,20 @@ const Product = ({ product, wishlist, addToWishlist }) => {
     addToWishlist(product, updatedWishlist);
   };
 
+
+  const handleAddToCart = () => {
+    setIsInWishlist(true)
+    addToCart(product);
+  };
+
+
   return (
     <div className="product">
       <Link to={`/product/${product.id}`}>
-        <div className="product_img">
-          <img src={product.image} alt="product_img" />
+        <div className="product_img_container">
+          <div className="product_img">
+            <img src={product.image} alt="product_img" />
+          </div>
         </div>
       </Link>
       <h4 className="product_title">{product.title}</h4>
@@ -39,6 +52,10 @@ const Product = ({ product, wishlist, addToWishlist }) => {
         text={<FaHeart className={`${isInWishlist ? "coloredHeart" : ""}`} />}
         handleClick={toggleWishlist}
       />
+      <div className="cart_btns_container">
+        <Button text={<FaPlus />} handleClick={handleAddToCart} />
+        {isInCart && <Button text={<FaMinus />} handleClick={() => handleRemoveFromCart(product.id)} />}
+      </div>
     </div>
   );
 };
