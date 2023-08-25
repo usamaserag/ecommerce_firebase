@@ -8,7 +8,7 @@ const Wishlist = () => {
     {
       wishlist.map((item) => (
         <div>
-          <h3>{item.title}</h3>
+          <h5>{item.title}</h5>
         </div>
       ))
     }
