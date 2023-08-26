@@ -21,7 +21,7 @@ const ErrorText = ({ text}) => {
         };
       }, [text]);
   return (
-    <h4  id="myElement" className="login_msg_error">{text}</h4>
+    <p  id="myElement" className="login_msg_error">{text}</p>
   )
 }
 

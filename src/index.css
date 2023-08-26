@@ -71,7 +71,44 @@ img {
   width: 100%;
   height: 100%;
 }
-
+input {
+  width: 100%;
+}
+/********************/
+.login_form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.login_form input {
+  padding: 12px;
+  border-radius: 5px;
+  outline: none;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.input_password_box {
+  position: relative;
+  width: 100%;
+}
+.icon_password {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 8px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.3s linear;
+}
+.icon_password:hover {
+  opacity: 1;
+}
+/********************/
 .navbar {
   width: 100%;
   display: flex;
@@ -178,6 +215,7 @@ img {
 }
 .login_msg_error {
   color: red;
+  font-size: 14px;
 }
 .dropdown_item {
   padding: 6px 12px;

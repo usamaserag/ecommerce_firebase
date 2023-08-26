@@ -13,7 +13,7 @@ import Wishlist from "./pages/Wishlist.jsx";
 import Profile from "./pages/Profile.jsx";
 import Products from "./pages/Products.jsx";
 import Signup from "./pages/Signup.jsx";
-import Login from "./pages/Login.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "./firebase";
 import ForgetPassword from "./pages/ForgetPassword";
@@ -151,7 +151,7 @@ const App = () => {
               <Routes>
                 <Route
                   path="/login"
-                  element={user ? <Navigate to="/" /> : <Login />}
+                  element={user ? <Navigate to="/" /> : <LoginPage />}
                 />
                 <Route
                   path="/"

@@ -38,7 +38,6 @@ const Login = () => {
         .catch((error) => {
           setErrorMsg("");
           // Login failed
-          // var errorMessage = error.message.split(":")[1].split(".")[0].trim();
           const errorCode = error.code;
 
           if (errorCode === "auth/user-not-found") {
