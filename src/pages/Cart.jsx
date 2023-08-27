@@ -9,11 +9,11 @@ const Cart = () => {
       {cart.length < 1
         ? "No products in your cart"
         : cart.map((item) => (
-            <div className="cart_item">
+            <div className="cart_item" key={item.id}>
               <h5>{item.title}</h5>
-              <p className="cart_item_price">{item.price}</p>
+              <p className="cart_item_price">{Math.floor(item.price)}</p>
               <b className="cart_item_price_total">
-                {item.quantity * item.price}
+                {item.quantity * Math.floor(item.price)}
               </b>
             </div>
           ))}

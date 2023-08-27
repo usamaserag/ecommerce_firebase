@@ -9,7 +9,7 @@ const Wishlist = () => {
       {wishlist.length < 1
         ? "No products in your wishlist"
         : wishlist.map((item) => (
-            <div>
+            <div key={item.id}>
               <h5>{item.title}</h5>
               <p>{item.price}</p>
             </div>

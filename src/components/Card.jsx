@@ -33,7 +33,9 @@ const Card = () => {
           text={<FaPlus />}
           handleClick={() => setCartCount(cartCount + 1)}
         />
+
         <Button text={<FaMinus />} handleClick={() => handleDecreaseCart()} />
+
         <Button
           text={<FaHeart className={`${!isFavorite ? "" : "coloredHeart"}`} />}
           handleClick={() => handleWishlist()}

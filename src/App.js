@@ -37,7 +37,11 @@ const App = () => {
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((json) => setProducts(json));
+      .then((json) =>
+        setProducts(
+          json.map((product) => ({ ...product, quantity: 0 })) // Add quantity key
+        )
+      );
   }, []);
 
   useEffect(() => {
@@ -95,6 +99,11 @@ const App = () => {
     } else {
       setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
     }
+    setProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+      )
+    );
   };
   const handleRemoveFromCart = (productId) => {
     setCart((prevCart) =>
@@ -105,6 +114,11 @@ const App = () => {
             : item
         )
         .filter((item) => item.quantity > 0)
+    );
+    setProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
+      )
     );
   };
 

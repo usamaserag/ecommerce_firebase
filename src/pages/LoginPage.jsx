@@ -16,11 +16,11 @@ const LoginPage = () => {
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case "login":
+      case "LOGIN":
         return { ...state, [action.field]: action.value };
-      case "reset":
+      case "RESET":
         return initialState;
-      case "wrong_password":
+      case "WRONG_PASSWORD":
         return { ...state, password: "" };
       default:
         return state;
@@ -30,7 +30,7 @@ const LoginPage = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const handleChange = (e) => {
     dispatch({
-      type: "login",
+      type: "LOGIN",
       field: e.target.name,
       value: e.target.value,
     });
@@ -55,7 +55,7 @@ const LoginPage = () => {
             errorCode === "auth/too-many-requests"
           ) {
             // Incorrect password
-            dispatch({ type: "wrong_password" });
+            dispatch({ type: "WRONG_PASSWORD" });
             setErrorMsg("Incorrect password");
           }
         });

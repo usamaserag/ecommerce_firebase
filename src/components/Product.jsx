@@ -54,6 +54,7 @@ const Product = ({ product }) => {
       />
       <div className="cart_btns_container">
         <Button text={<FaPlus />} handleClick={handleAddToCart} />
+        {product.quantity >= 1 && <p>{product.quantity}</p>}
         {isInCart && <Button text={<FaMinus />} handleClick={() => handleRemoveFromCart(product.id)} />}
       </div>
     </div>
