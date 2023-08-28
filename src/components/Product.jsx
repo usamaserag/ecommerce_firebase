@@ -34,6 +34,8 @@ const Product = ({ product }) => {
     addToCart(product);
   };
 
+  const cartItem = cart.find((item) => item.id === product.id);
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   return (
     <div className="product">
@@ -54,7 +56,7 @@ const Product = ({ product }) => {
       />
       <div className="cart_btns_container">
         <Button text={<FaPlus />} handleClick={handleAddToCart} />
-        {product.quantity >= 1 && <p>{product.quantity}</p>}
+        {cartQuantity >= 1 && <p>{cartQuantity}</p>}
         {isInCart && <Button text={<FaMinus />} handleClick={() => handleRemoveFromCart(product.id)} />}
       </div>
     </div>
