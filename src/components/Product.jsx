@@ -51,7 +51,7 @@ const Product = ({ product }) => {
       <h3 className="product_price">{product.price}</h3>
       <StarRating rating={product.rating.rate} />
       <Button
-        text={<FaHeart className={`${isInWishlist ? "coloredHeart" : ""}`} />}
+        text={<FaHeart className={`${isInWishlist ? "coloredHeart heart_icon" : "heart_icon"}`} />}
         handleClick={toggleWishlist}
       />
       <div className="cart_btns_container">

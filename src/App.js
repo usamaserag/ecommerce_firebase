@@ -30,6 +30,8 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
@@ -40,6 +42,13 @@ const App = () => {
       .then((json) =>
         setProducts(
           json.map((product) => ({ ...product, quantity: 0 })) // Add quantity key
+        )
+      );
+      fetch("https://fakestoreapi.com/products/categories")
+      .then((res) => res.json())
+      .then((json) =>
+        setCategories(
+          json
         )
       );
   }, []);
@@ -122,6 +131,15 @@ const App = () => {
     );
   };
 
+  const handleFilter = (category) => {
+    setSelectedCategory(category);
+  }
+
+  const filteredProducts = selectedCategory === "all"
+  ? products
+  : products.filter(product => product.category === selectedCategory);
+
+
   if (loading) {
     return (
       <div className={darkMode ? "dark-mode full_page" : "full_page"}>
@@ -136,6 +154,9 @@ const App = () => {
         darkMode,
         toggleDarkMode,
         products,
+        categories,
+        handleFilter,
+        filteredProducts,
         userId,
         user,
         cartCount,

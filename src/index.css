@@ -151,6 +151,9 @@ input {
   gap: 16px;
   height: 100%;
 }
+.right_nav button {
+  font-weight: 600;
+}
 
 .phone_nav,
 .mail_nav {
@@ -432,13 +435,18 @@ input {
   gap: 20px;
   margin-top: 30px;
 }
-.coloredHeart {
-  color: var(--main_color);
-}
+
 .cards_container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
+}
+.heart_icon {
+  font-size: 20px;
+  color: var(--icon_color);
+}
+.heart_icon.coloredHeart {
+  color: var(--main_color);
 }
 .product {
   padding: 12px;

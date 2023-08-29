@@ -3,7 +3,7 @@ import Product from "../components/Product";
 import { StateContext } from "../App";
 
 const Products = () => {
-  const { products } = useContext(StateContext);
+  const { products, filteredProducts } = useContext(StateContext);
 
   if (products.length === 0) {
     return <div>Loading...</div>;
@@ -12,7 +12,7 @@ const Products = () => {
   return (
     <div className="content">
       <div className="cards_container">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <Product key={product.id} product={product} />
         ))}
       </div>

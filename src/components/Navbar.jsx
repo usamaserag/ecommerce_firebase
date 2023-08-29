@@ -12,15 +12,22 @@ import {
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
-import DropDown from "./DropDown";
+// import DropDown from "./DropDown";
 import DefaultModal from "./DefaultModal";
+import Button from "./Button";
 import { StateContext } from "../App";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const auth = firebase.auth();
-  const { cartCount, wishlistCount, darkMode, toggleDarkMode } =
-    useContext(StateContext);
+  const {
+    cartCount,
+    wishlistCount,
+    darkMode,
+    toggleDarkMode,
+    categories,
+    handleFilter,
+  } = useContext(StateContext);
 
   const handleLogout = async () => {
     try {
@@ -80,22 +87,14 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="right_nav">
-            <DropDown text="Home" />
-            <Link className="main_nav_item">
-              <p className="main_nav_item_text">Services</p>
-            </Link>
-            <Link className="main_nav_item">
-              <p className="main_nav_item_text">Shop</p>
-            </Link>
-            <Link className="main_nav_item">
-              <p className="main_nav_item_text">Gallery</p>
-            </Link>
-            <Link className="main_nav_item">
-              <p className="main_nav_item_text">Pages</p>
-            </Link>
-            <Link className="main_nav_item">
-              <p className="main_nav_item_text">Contacts</p>
-            </Link>
+            <Button text="All" handleClick={() => handleFilter("all")} />
+            {categories.map((item, index) => (
+              <Button
+                key={index}
+                text={item}
+                handleClick={() => handleFilter(item)}
+              />
+            ))}
           </div>
         </div>
       </div>
