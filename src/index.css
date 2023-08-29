@@ -152,7 +152,13 @@ input {
   height: 100%;
 }
 .right_nav button {
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: capitalize;
+  transition: all 0.3s ease-in;
+}
+.right_nav button:hover {
+  color: var(--main_color);
 }
 
 .phone_nav,
@@ -165,6 +171,9 @@ input {
   transition: all 0.3s ease-in;
 }
 .left_nav small:hover {
+  color: var(--main_color);
+}
+.selected_category {
   color: var(--main_color);
 }
 .main_nav_item {

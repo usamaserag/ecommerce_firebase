@@ -157,6 +157,7 @@ const App = () => {
         categories,
         handleFilter,
         filteredProducts,
+        selectedCategory,
         userId,
         user,
         cartCount,
