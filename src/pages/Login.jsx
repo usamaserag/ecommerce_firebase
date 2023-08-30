@@ -39,7 +39,6 @@ const Login = () => {
           setErrorMsg("");
           // Login failed
           const errorCode = error.code;
-
           if (errorCode === "auth/user-not-found") {
             // User does not exist or email is not registered
             setErrorMsg("User does not exist or email is not registered");

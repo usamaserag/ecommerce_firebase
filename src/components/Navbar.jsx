@@ -27,7 +27,7 @@ const Navbar = () => {
     toggleDarkMode,
     categories,
     handleFilter,
-    selectedCategory
+    selectedCategory,
   } = useContext(StateContext);
 
   const handleLogout = async () => {
@@ -88,13 +88,19 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="right_nav">
-            <Button text="All" handleClick={() => handleFilter("all")} btn_class={`${selectedCategory === "all" && 'selected_category'}`} />
+            <Button
+              text="All"
+              handleClick={() => handleFilter("all")}
+              btn_class={`${selectedCategory === "all" && "selected_category"}`}
+            />
             {categories.map((item, index) => (
               <Button
                 key={index}
                 text={item}
                 handleClick={() => handleFilter(item)}
-                btn_class={`${selectedCategory === item && 'selected_category'}`}
+                btn_class={`${
+                  selectedCategory === item && "selected_category"
+                }`}
               />
             ))}
           </div>

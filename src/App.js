@@ -44,13 +44,9 @@ const App = () => {
           json.map((product) => ({ ...product, quantity: 0 })) // Add quantity key
         )
       );
-      fetch("https://fakestoreapi.com/products/categories")
+    fetch("https://fakestoreapi.com/products/categories")
       .then((res) => res.json())
-      .then((json) =>
-        setCategories(
-          json
-        )
-      );
+      .then((json) => setCategories(json));
   }, []);
 
   useEffect(() => {
@@ -133,12 +129,12 @@ const App = () => {
 
   const handleFilter = (category) => {
     setSelectedCategory(category);
-  }
+  };
 
-  const filteredProducts = selectedCategory === "all"
-  ? products
-  : products.filter(product => product.category === selectedCategory);
-
+  const filteredProducts =
+    selectedCategory === "all"
+      ? products
+      : products.filter((product) => product.category === selectedCategory);
 
   if (loading) {
     return (
@@ -182,7 +178,7 @@ const App = () => {
       >
         <Router>
           <div className={darkMode ? "dark-mode full_page" : "full_page"}>
-            <div className="container">
+            <div className="container my-0 mx-auto h-screen">
               {user && <Navbar />}
               <Routes>
                 <Route

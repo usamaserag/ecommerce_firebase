@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --main_color: #00b96b;
   --border_color: #e4e4e4;
@@ -56,7 +60,7 @@ a {
   align-items: center;
   position: relative;
 }
-button {
+/* button {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -66,7 +70,7 @@ button {
   align-items: center;
   outline: none;
   width: fit-content;
-}
+} */
 img {
   width: 100%;
   height: 100%;
@@ -74,41 +78,7 @@ img {
 input {
   width: 100%;
 }
-/********************/
-.login_form {
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.login_form input {
-  padding: 12px;
-  border-radius: 5px;
-  outline: none;
-}
-.input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.input_password_box {
-  position: relative;
-  width: 100%;
-}
-.icon_password {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  right: 8px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: all 0.3s linear;
-}
-.icon_password:hover {
-  opacity: 1;
-}
-/********************/
+
 .navbar {
   width: 100%;
   display: flex;
@@ -242,11 +212,7 @@ input {
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 100vh;
-}
+
 .full_page {
   width: 100%;
   background-color: var(--background-color);
