@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
 import firebase from "../firebase";
@@ -24,15 +23,16 @@ const ForgetPassword = () => {
     setEmail(value);
   };
   return (
-    <>
+    <div className="p-3">
       {!isEmailSent ? (
         <>
-          <h3 className="forget_password_title">
+          <div className="navbar_logo text-center">Serag</div>
+          <h2 className="text-xl text-center font-bold text-2xl">
             Enter your email address to reset your password.
-          </h3>
+          </h2>
           <Form
             name="normal_login"
-            className="login-form forget_password_form"
+            className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-2 p-3"
             initialValues={{
               remember: true,
             }}
@@ -49,30 +49,28 @@ const ForgetPassword = () => {
                 },
               ]}
             >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
-              />
+              <Input placeholder="Enter your email" />
             </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                Send
-              </Button>
-            </Form.Item>
-            <Link to="/login">
-              <Button className="login-form-button">Cancel</Button>
-            </Link>
+            <div className="d-flex flex-col gap-2">
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="bg-primary mb-0 w-full"
+                >
+                  Send
+                </Button>
+              </Form.Item>
+              <Link to="/login">
+                <Button className="w-full">Cancel</Button>
+              </Link>
+            </div>
           </Form>
         </>
       ) : (
         <p>Password reset email sent. Please check your email inbox.</p>
       )}
-    </>
+    </div>
   );
 };
 

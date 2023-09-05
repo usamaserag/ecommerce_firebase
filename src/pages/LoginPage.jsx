@@ -71,20 +71,23 @@ const LoginPage = () => {
   const endTogglePasswordInput = () => {
     setInputType(true);
   };
+  const handleForgetPassword = () => {
+    navigate("/forgetpassword");
+  };
 
   return (
-    <div className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-4 p-3">
-      <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="navbar_logo text-center">Serag</div>
-        <h3 className="text-xl text-center font-bold text-2xl">
-          Login To Serag Store
-        </h3>
+    <div className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-2 p-3">
+      <div className="navbar_logo text-center">Serag</div>
+      <h3 className="text-xl text-center font-bold text-2xl">
+        Login To Serag Store
+      </h3>
+      <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
         <div className="flex flex-col">
           <label className="text-gray-700" htmlFor="mail">
             E-mail
           </label>
           <input
-            className="border-0 bg-white py-1.5 pl-1 mt-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+            className="border-0 bg-white py-1.5 pl-1 mt-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
             id="mail"
             name="mail"
             type="email"
@@ -100,7 +103,7 @@ const LoginPage = () => {
           </label>
           <div className="relative">
             <input
-              className="border-0 bg-white py-1.5 pl-1 mt-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+              className="border-0 bg-white py-1.5 pl-1 mt-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
               id="password"
               name="password"
               type={inputType ? "password" : "text"}
@@ -119,13 +122,17 @@ const LoginPage = () => {
           </div>
         </div>
         <ErrorText text={errorMsg} />
+        <p onClick={handleForgetPassword} className="text-primary text-center cursor-pointer underline">
+          Forget password
+        </p>
         <input
           className="rounded-lg bg-primary px-2.5 py-1.5 text-white cursor-pointer transition-all duration-200 hover:bg-primaryHover"
           type="submit"
+          value="Login"
         />
       </form>
       <Button
-        text="register now"
+        text="Register now"
         handleClick={handleRegister}
         btn_class="w-full text-primary text-center rounded-lg border border-primary bg-white px-2.5 py-1.5 cursor-pointer"
       />

@@ -12,7 +12,7 @@ import Cart from "./pages/Cart.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import Profile from "./pages/Profile.jsx";
 import Products from "./pages/Products.jsx";
-import Signup from "./pages/Signup.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "./firebase";
@@ -192,7 +192,7 @@ const App = () => {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/user" element={<Profile />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/signup" element={<SignupPage />} />
                 <Route path="/forgetpassword" element={<ForgetPassword />} />
                 <Route path="/product/:id" element={<ProductPage />} />
               </Routes>

@@ -1,17 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StateContext } from "../App";
 
 const Profile = () => {
   const { user } = useContext(StateContext);
-  const getUserName = () => {
-    if (user && user !== null) {
-      return user.email.substring(0, user.email.indexOf("@"));
-    }
-  };
-
+  useEffect(()=>{
+    console.log(user)
+  },[user])
   return (
     <div className="content">
-      <p>Welcome {getUserName()}</p>
+      <p>Welcome {user.displayName}</p>
     </div>
   );
 };
