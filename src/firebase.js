@@ -1,6 +1,9 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/storage";
 import "firebase/compat/firestore";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAW8VduFyPvTOW2SOG2ofbNyIFIIA3n9Tg",
@@ -12,5 +15,10 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+// Initialize Storage using compat
+const storage = firebase.storage();
+
+export const imageDb = storage; // Export the initialized storage
 
 export default firebase;

@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
+import Loading from "../components/Loading"
 import firebase from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { imageDb } from "../firebase";
 
 const SignupPage = () => {
   const navigate = useNavigate();
   const auth = firebase.auth();
   const [emailIsUse, setEmailIsUse] = useState("");
+  const [image, setImage] = useState(null);
+  const [isSignUp, setIsSignUp] = useState(false)
 
   const {
     handleSubmit,
@@ -15,34 +20,69 @@ const SignupPage = () => {
     formState: { errors },
     watch,
     reset,
-    clearErrors, // Add clearErrors from react-hook-form
+    clearErrors,
   } = useForm();
 
   const password = watch("password");
 
-  const onSubmit = async (data) => {
-    const { email, password, userName } = data;
+  const handleUpload = async () => {
+    if (image) {
+      try {
+        // Generate a unique name for the image file
+        const imageName = `${Date.now()}_${image.name}`;
 
+        // Create a reference to the Firebase Storage bucket and the image file
+        const storageRef = ref(imageDb, `images/${imageName}`);
+
+        // Upload the image to Firebase Storage
+        await uploadBytes(storageRef, image);
+
+        // Get the download URL of the uploaded image
+        const downloadURL = await getDownloadURL(storageRef);
+
+        return downloadURL;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        throw error;
+      }
+    }
+    return null;
+  };
+
+  const onSubmit = async (data) => {
+    setIsSignUp(true)
+    const { email, password, userName } = data;
     try {
+      // Upload the image and get the download URL
+      const photoURL = await handleUpload();
+
+      // Create the user in Firebase Authentication
       const userCredential = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
       const user = userCredential.user;
 
-      // Update user profile with userName
-      await user.updateProfile({
-        displayName: userName,
-      });
+      if (user) {
+        // Update user profile with userName and photoURL
+        await user.updateProfile({
+          displayName: userName,
+          photoURL: photoURL,
+        });
+        setIsSignUp(false)
+        console.log("User created:", user);
 
-      console.log("User created:", user);
+
+      }
 
       reset();
       navigate("/");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         // Display the "Email address is already in use" error message
-        setEmailIsUse("Email address is already in use. Please choose another.");
+        setEmailIsUse(
+          "Email address is already in use. Please choose another."
+        );
       } else {
         // Handle other authentication errors
         setEmailIsUse(""); // Clear the error message
@@ -62,7 +102,8 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-2 p-3">
+
+      isSignUp ? <Loading /> : <div className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-2 p-3">
       <div className="navbar_logo text-center">Serag</div>
       <h3 className="text-xl text-center font-bold text-2xl">
         Sign Up To Serag Store
@@ -93,33 +134,31 @@ const SignupPage = () => {
           )}
         </div>
         <div className="flex flex-col">
-        <label className="text-gray-700" htmlFor="email">
-          E-mail
-        </label>
-        <input
-          id="email"
-          className="border-0 bg-white py-1.5 pl-1 mt-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-          type="email"
-          placeholder="Enter your email ..."
-          {...register("email", {
-            required: "Email Address is required",
-            validate: (value) => {
-              if (emailIsUse) {
-                // If emailIsUse error is present, clear it when the input is valid
-                clearEmailError();
+          <label className="text-gray-700" htmlFor="email">
+            E-mail
+          </label>
+          <input
+            id="email"
+            className="border-0 bg-white py-1.5 pl-1 mt-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+            type="email"
+            placeholder="Enter your email ..."
+            {...register("email", {
+              required: "Email Address is required",
+              validate: (value) => {
+                if (emailIsUse) {
+                  // If emailIsUse error is present, clear it when the input is valid
+                  clearEmailError();
+                  return true;
+                }
                 return true;
-              }
-              return true;
-            },
-          })}
-        />
-        {errors.email && (
-          <small className="text-red-500">{errors.email.message}</small>
-        )}
-        {emailIsUse && (
-          <small className="text-red-500">{emailIsUse}</small>
-        )}
-      </div>
+              },
+            })}
+          />
+          {errors.email && (
+            <small className="text-red-500">{errors.email.message}</small>
+          )}
+          {emailIsUse && <small className="text-red-500">{emailIsUse}</small>}
+        </div>
         <div className="flex flex-col">
           <label>Password</label>
           <input
@@ -157,6 +196,13 @@ const SignupPage = () => {
             </small>
           )}
         </div>
+        {/* input to upload image it is optional */}
+
+        <div className="flex flex-col">
+          <label>upload Your Image</label>
+          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+        </div>
+
         <input
           className="rounded-lg bg-primary px-2.5 py-1.5 text-white cursor-pointer transition-all duration-200 hover:bg-primaryHover"
           type="submit"
@@ -169,6 +215,8 @@ const SignupPage = () => {
         btn_class="w-full text-primary text-center rounded-lg border border-primary bg-white px-2.5 py-1.5 cursor-pointer"
       />
     </div>
+
+
   );
 };
 
