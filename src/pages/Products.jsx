@@ -12,8 +12,8 @@ const Products = () => {
   return (
     <div className="content">
       <div className="cards_container">
-        {filteredProducts.map((product) => (
-          <Product key={product.id} product={product} />
+        {filteredProducts.map((product, index) => (
+          <Product key={index} product={product} />
         ))}
       </div>
     </div>

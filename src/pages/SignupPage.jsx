@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
-import Loading from "../components/Loading"
+import Loading from "../components/Loading";
 import firebase from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { imageDb } from "../firebase";
@@ -12,7 +12,7 @@ const SignupPage = () => {
   const auth = firebase.auth();
   const [emailIsUse, setEmailIsUse] = useState("");
   const [image, setImage] = useState(null);
-  const [isSignUp, setIsSignUp] = useState(false)
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const {
     handleSubmit,
@@ -50,7 +50,7 @@ const SignupPage = () => {
   };
 
   const onSubmit = async (data) => {
-    setIsSignUp(true)
+    setIsSignUp(true);
     const { email, password, userName } = data;
     try {
       // Upload the image and get the download URL
@@ -69,10 +69,7 @@ const SignupPage = () => {
           displayName: userName,
           photoURL: photoURL,
         });
-        setIsSignUp(false)
-        console.log("User created:", user);
-
-
+        setIsSignUp(false);
       }
 
       reset();
@@ -101,9 +98,10 @@ const SignupPage = () => {
     setEmailIsUse("");
   };
 
-  return (
-
-      isSignUp ? <Loading /> : <div className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-2 p-3">
+  return isSignUp ? (
+    <Loading />
+  ) : (
+    <div className="md:w-6/12 w-full my-0 mx-auto flex flex-col gap-2 p-3">
       <div className="navbar_logo text-center">Serag</div>
       <h3 className="text-xl text-center font-bold text-2xl">
         Sign Up To Serag Store
@@ -215,8 +213,6 @@ const SignupPage = () => {
         btn_class="w-full text-primary text-center rounded-lg border border-primary bg-white px-2.5 py-1.5 cursor-pointer"
       />
     </div>
-
-
   );
 };
 

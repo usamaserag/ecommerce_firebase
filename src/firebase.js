@@ -4,7 +4,7 @@ import "firebase/compat/storage";
 import "firebase/compat/firestore";
 
 
-
+// TODO: move to .env file
 const firebaseConfig = {
   apiKey: "AIzaSyAW8VduFyPvTOW2SOG2ofbNyIFIIA3n9Tg",
   authDomain: "e-commerce-4a5f8.firebaseapp.com",
