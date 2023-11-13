@@ -40,16 +40,16 @@ const Navbar = () => {
   };
   return (
     <nav className="navbar">
-      <div className="navbar_wrapper">
-        <div className="top_navbar">
+      <div className="navbar_wrapper w-full flex flex-col gap-2">
+        <div className="top_navbar w-full flex justify-between">
           <div className="left_nav">
             <Link to="+9123 456 87" className="phone_nav">
               <FaPhoneAlt className="left_nav_navbar_icon" />
-              <small>+9123 456 87</small>
+              <small>+201094647749</small>
             </Link>
             <Link to="creto@gmail.com" className="mail_nav">
               <FaEnvelope className="left_nav_navbar_icon" />
-              <small>creto@gmail.com</small>
+              <small>Serag@gmail.com</small>
             </Link>
           </div>
           <div className="right_nav">
@@ -74,14 +74,13 @@ const Navbar = () => {
               {cartCount > 0 && <span className="patch">{cartCount}</span>}
             </Link>
             <DefaultModal
-              darkMode={darkMode}
               text={<FaSignOutAlt className="navbar_icon" />}
               handleOkModal={handleLogout}
               modalTitle="Are you sure you want log out!"
             />
           </div>
         </div>
-        <div className="main_navbar">
+        <div className="main_navbar w-full">
           <div className="left_nav">
             <Link to="/">
               <div className="navbar_logo">Serag</div>

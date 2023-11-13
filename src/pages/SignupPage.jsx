@@ -198,7 +198,7 @@ const SignupPage = () => {
 
         <div className="flex flex-col">
           <label>upload Your Image</label>
-          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          <input type="file" className="file-input w-full max-w-xs bg-primary file-input-success text-white" onChange={(e) => setImage(e.target.files[0])} />
         </div>
 
         <input
