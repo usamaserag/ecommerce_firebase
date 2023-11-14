@@ -199,7 +199,7 @@ const App = () => {
       >
         <Router>
           <div className={darkMode ? "dark-mode full_page" : "full_page"}>
-            <div className="container my-0 mx-auto min-h-screen">
+            <div className={user && 'container my-0 mx-auto min-h-screen'}>
               {user && <Navbar />}
               <Routes>
                 <Route
