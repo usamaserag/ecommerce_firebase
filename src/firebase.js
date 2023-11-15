@@ -6,7 +6,7 @@ import "firebase/compat/firestore";
 
 // TODO: move to .env file
 const firebaseConfig = {
-  apiKey: "AIzaSyAW8VduFyPvTOW2SOG2ofbNyIFIIA3n9Tg",
+  apiKey: `${process.env.REACT_APP_API_KEY}`,
   authDomain: "e-commerce-4a5f8.firebaseapp.com",
   projectId: "e-commerce-4a5f8",
   storageBucket: "e-commerce-4a5f8.appspot.com",

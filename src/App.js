@@ -18,7 +18,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "./firebase";
 import ForgetPassword from "./pages/ForgetPassword";
 import Loading from "./components/Loading";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 export const StateContext = createContext(null);
 
@@ -36,11 +35,10 @@ const App = () => {
 
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
-  const [hasMore, setHasMore] = useState(false);
-  // const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetchProducts();
+    // get all categories from API
     fetch("https://fakestoreapi.com/products/categories")
       .then((res) => res.json())
       .then((json) => setCategories(json));
@@ -48,23 +46,10 @@ const App = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch(
-        // `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`
-        "https://fakestoreapi.com/products"
-      );
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await res.json();
-      if (data.length === 0) {
-        setHasMore(false);
-      } else {
-        setProducts((prevProducts) => [
-          ...prevProducts,
-          ...data.map((product) => ({ ...product, quantity: 0 })),
-        ]);
-        // setPage((prevPage) => prevPage + 1);
-      }
+      const res = await fetch("https://fakestoreapi.com/products");
+      const data = await res.json()
+      const updatedData = await data.map((product) => ({ ...product, quantity: 0 }));
+      setProducts(updatedData)
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -199,7 +184,7 @@ const App = () => {
       >
         <Router>
           <div className={darkMode ? "dark-mode full_page" : "full_page"}>
-            <div className={user && 'container my-0 mx-auto min-h-screen'}>
+            <div className={user && "container my-0 mx-auto min-h-screen"}>
               {user && <Navbar />}
               <Routes>
                 <Route
@@ -208,23 +193,7 @@ const App = () => {
                 />
                 <Route
                   path="/"
-                  element={
-                    user ? (
-                      <div>
-                        <InfiniteScroll
-                          dataLength={products.length}
-                          next={fetchProducts}
-                          hasMore={hasMore}
-                          loader={<Loading />}
-                          endMessage={<p>No more comments to load</p>}
-                        >
-                          <Products />
-                        </InfiniteScroll>
-                      </div>
-                    ) : (
-                      <Navigate to="/login" />
-                    )
-                  }
+                  element={user ? <Products /> : <Navigate to="/login" />}
                 />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<Wishlist />} />

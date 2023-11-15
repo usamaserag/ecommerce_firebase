@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 import firebase from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { imageDb } from "../firebase";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { imageDb } from "../firebase";
 import { FaUserPlus } from "react-icons/fa";
 
 const SignupPage = () => {
   const navigate = useNavigate();
   const auth = firebase.auth();
   const [emailIsUse, setEmailIsUse] = useState("");
-  const [image, setImage] = useState(null);
+  // const [image, setImage] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
 
   const {
@@ -25,36 +25,36 @@ const SignupPage = () => {
 
   const password = watch("password");
 
-  const handleUpload = async () => {
-    if (image) {
-      try {
-        // Generate a unique name for the image file
-        const imageName = `${Date.now()}_${image.name}`;
+  // const handleUpload = async () => {
+  //   if (image) {
+  //     try {
+  //       // Generate a unique name for the image file
+  //       const imageName = `${Date.now()}_${image.name}`;
 
-        // Create a reference to the Firebase Storage bucket and the image file
-        const storageRef = ref(imageDb, `images/${imageName}`);
+  //       // Create a reference to the Firebase Storage bucket and the image file
+  //       const storageRef = ref(imageDb, `images/${imageName}`);
 
-        // Upload the image to Firebase Storage
-        await uploadBytes(storageRef, image);
+  //       // Upload the image to Firebase Storage
+  //       await uploadBytes(storageRef, image);
 
-        // Get the download URL of the uploaded image
-        const downloadURL = await getDownloadURL(storageRef);
+  //       // Get the download URL of the uploaded image
+  //       const downloadURL = await getDownloadURL(storageRef);
 
-        return downloadURL;
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        throw error;
-      }
-    }
-    return null;
-  };
+  //       return downloadURL;
+  //     } catch (error) {
+  //       console.error("Error uploading image:", error);
+  //       throw error;
+  //     }
+  //   }
+  //   return null;
+  // };
 
   const onSubmit = async (data) => {
     setIsSignUp(true);
     const { email, password, userName } = data;
     try {
       // Upload the image and get the download URL
-      const photoURL = await handleUpload();
+      // const photoURL = await handleUpload();
 
       // Create the user in Firebase Authentication
       const userCredential = await auth.createUserWithEmailAndPassword(
@@ -67,7 +67,7 @@ const SignupPage = () => {
         // Update user profile with userName and photoURL
         await user.updateProfile({
           displayName: userName,
-          photoURL: photoURL,
+          // photoURL: photoURL,
         });
         setIsSignUp(false);
       }
