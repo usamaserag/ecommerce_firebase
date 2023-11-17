@@ -12,7 +12,6 @@
 // import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 // import firebase from "../firebase";
-// // import DropDown from "./DropDown";
 // import DefaultModal from "./DefaultModal";
 // import Button from "./Button";
 // import { StateContext } from "../App";
@@ -173,7 +172,7 @@ const Navbar = () => {
           </label>
           <div
             tabIndex={0}
-            className="z-[1] card card-compact dropdown-content w-60 shadow bg-white rounded-md mt-7"
+            className="z-[1] card card-compact dropdown-content w-60 shadow bg-white rounded-md mt-7 overflow-y-scroll max-h-[80vh]"
           >
             <div className="card-body">
               {cartCount > 0 && (
@@ -182,30 +181,38 @@ const Navbar = () => {
               {cart.length < 1
                 ? "No products in your cart"
                 : cart.map((item) => (
-                    <div className="cart_item" key={item.id}>
+                    <div
+                      className="flex flex-col gap-1 border-b py-1"
+                      key={item.id}
+                    >
                       <div className="w-8 h-8">
                         <img src={item.image} alt="product_image" />
                       </div>
                       <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis">
                         {item.title}
                       </h5>
-                      <p className="cart_item_price">
-                        {Math.floor(item.price)}
-                      </p>
-                      <b className="cart_item_price_total">
-                        {item.quantity * item.price}
-                      </b>
+                      <div className="flex items-center gap-2 justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="cart_item_price">
+                            {item.quantity}
+                          </span>
+                          <small>x</small>
+                          <b className="cart_item_price_total">{item.price}</b>
+                        </div>
+                        <b>{item.quantity * item.price}</b>
+                      </div>
                     </div>
                   ))}
               {totalCart > 0 && (
-                <span className="text-primary font-semibold text-base">
-                  Subtotal: {totalCart}
+                <span className="flex items-center justify-between">
+                  <span className="font-semibold">Subtotal:</span>{" "}
+                  <b className="text-primary">{totalCart.toFixed(2)}</b>
                 </span>
               )}
               {totalCart > 0 && (
                 <Link
                   to="/cart"
-                  className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md"
+                  className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4"
                 >
                   View cart
                 </Link>
@@ -223,18 +230,27 @@ const Navbar = () => {
             tabIndex={0}
             className="dropdown-content mt-3 z-[1] p-2 shadow rounded-md w-52 bg-white"
           >
-            <li className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100">
-              <FaUser />
-              <Link to="/user">Profile</Link>
-            </li>
-            <li className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100">
-              <FaHeart />
-              <Link to="/wishlist">Wishlist</Link>
-            </li>
-            <li className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100">
-              <FaSignOutAlt />
-              <button onClick={handleLogout}>Logout</button>
-            </li>
+            <Link
+              to="/user"
+              className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+            >
+              <FaUser className="text-sm" />
+              <span>Profile</span>
+            </Link>
+            <Link
+              to="/wishlist"
+              className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+            >
+              <FaHeart className="text-sm" />
+              <span>Wishlist</span>
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full"
+            >
+              <FaSignOutAlt className="text-sm" />
+              <span>Logout</span>
+            </button>
           </ul>
         </div>
       </div>

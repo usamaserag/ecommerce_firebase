@@ -1,29 +1,58 @@
 import React, { useContext } from "react";
 import { StateContext } from "../App";
+import { AnimatePresence, motion } from "framer-motion";
+import { FaTimes } from "react-icons/fa";
 
 const Cart = () => {
-  const { cart } = useContext(StateContext);
+  const { cart, handleDeleteCartItem } = useContext(StateContext);
 
   return (
     <div className="content">
-      {cart.length < 1
-        ? "No products in your cart"
-        : cart.map((item) => (
-            <div className="flex items-center gap-2 border-b py-2 border-primary" key={item.id}>
-              <div className="w-20 h-20 bg-white rounded-md flex items-center justify-center">
-                <div className="w-14 h-14">
-                  <img src={item.image} alt="product_image" />
+      <AnimatePresence>
+        {cart.length < 1
+          ? "No products in your cart"
+          : cart.map((item) => (
+              <motion.div
+                initial={{ opacity: 0, y: -50, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -50, scale: 0.8 }}
+                transition={{
+                  duration: 0.5,
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 20,
+                }}
+                key={item.id}
+              >
+                <div className="flex items-center gap-4 border-b py-2 border-primary">
+                  <div className="w-20 h-20 bg-white rounded-md flex items-center justify-center">
+                    <div className="w-14 h-14">
+                      <img src={item.image} alt="product_image" />
+                    </div>
+                  </div>
+                  <div className="h-20 flex flex-col justify-around max-w-[200px] w-full">
+                    <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                      {item.title}
+                    </h5>
+                    <div className="flex items-center gap-2 justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="cart_item_price">{item.quantity}</span>
+                        <small>x</small>
+                        <b className="cart_item_price_total">{item.price}</b>
+                      </div>
+                      <b>{item.quantity * item.price}</b>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteCartItem(item.id)}
+                    className="w-6 h-6 bg-red-500 text-white font-medium rounded-full flex items-center justify-center justify-self-end"
+                  >
+                    <FaTimes />
+                  </button>
                 </div>
-              </div>
-              <div>
-                <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-[200px]">{item.title}</h5>
-                <p className="cart_item_price">{Math.floor(item.price)}</p>
-                <b className="cart_item_price_total">
-                  {item.quantity * Math.floor(item.price)}
-                </b>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+      </AnimatePresence>
     </div>
   );
 };

@@ -30,7 +30,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
-  const [totalCart, setTotalCart] = useState(0)
+  const [totalCart, setTotalCart] = useState(0);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -82,9 +82,9 @@ const App = () => {
     }
     const totalCartValue = cart.reduce((acc, val) => {
       acc += val.price * val.quantity;
-      return acc
+      return acc;
     }, 0);
-    setTotalCart(totalCartValue)
+    setTotalCart(totalCartValue);
   }, [wishlist, setWishlistCount, userId, cart]);
 
   useEffect(() => {
@@ -142,6 +142,11 @@ const App = () => {
     );
   };
 
+  const handleDeleteCartItem = (productId) => {
+    const updatedCartItems = cart.filter((item) => item.id !== productId);
+    setCart(updatedCartItems);
+  };
+
   const handleFilter = (category) => {
     setSelectedCategory(category);
   };
@@ -183,6 +188,7 @@ const App = () => {
         addToWishlist,
         addToCart,
         handleRemoveFromCart,
+        handleDeleteCartItem,
       }}
     >
       <ConfigProvider
