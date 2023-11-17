@@ -30,6 +30,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
+  const [totalCart, setTotalCart] = useState(0)
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -47,9 +48,12 @@ const App = () => {
   const fetchProducts = async () => {
     try {
       const res = await fetch("https://fakestoreapi.com/products");
-      const data = await res.json()
-      const updatedData = await data.map((product) => ({ ...product, quantity: 0 }));
-      setProducts(updatedData)
+      const data = await res.json();
+      const updatedData = await data.map((product) => ({
+        ...product,
+        quantity: 0,
+      }));
+      setProducts(updatedData);
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -76,6 +80,11 @@ const App = () => {
       sessionStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
       setCartCount(cart.length);
     }
+    const totalCartValue = cart.reduce((acc, val) => {
+      acc += val.price * val.quantity;
+      return acc
+    }, 0);
+    setTotalCart(totalCartValue)
   }, [wishlist, setWishlistCount, userId, cart]);
 
   useEffect(() => {
@@ -166,6 +175,7 @@ const App = () => {
         setCartCount,
         wishlist,
         cart,
+        totalCart,
         setCart,
         setWishlist,
         wishlistCount,
@@ -183,7 +193,13 @@ const App = () => {
         }}
       >
         <Router>
-          <div className={darkMode ? "dark-mode full_page" : "full_page"}>
+          <div
+            className={
+              !darkMode
+                ? "full_page bg-emerald-100"
+                : "full_page bg-emerald-100"
+            }
+          >
             <div className={user && "container my-0 mx-auto min-h-screen"}>
               {user && <Navbar />}
               <Routes>
