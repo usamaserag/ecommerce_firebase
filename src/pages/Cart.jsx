@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { StateContext } from "../App";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
+import Modal from "../components/Modal";
 
 const Cart = () => {
   const { cart, handleDeleteCartItem } = useContext(StateContext);
@@ -9,8 +10,8 @@ const Cart = () => {
   return (
     <div className="content">
       <AnimatePresence>
-        {cart.length < 1
-          ? "No products in your cart"
+        {cart.length === 0
+          ? <p>No products in your cart</p>
           : cart.map((item) => (
               <motion.div
                 initial={{ opacity: 0, y: -50, scale: 0.8 }}
@@ -43,12 +44,23 @@ const Cart = () => {
                       <b>{item.quantity * item.price}</b>
                     </div>
                   </div>
-                  <button
+                  {/* <button
+                    className="w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center justify-self-end"
                     onClick={() => handleDeleteCartItem(item.id)}
-                    className="w-6 h-6 bg-red-500 text-white font-medium rounded-full flex items-center justify-center justify-self-end"
                   >
                     <FaTimes />
-                  </button>
+                  </button> */}
+                  <Modal
+                    modalText={
+                      <span className="w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center justify-self-end">
+                        <FaTimes />
+                      </span>
+                    }
+                    modalId={`remove_cart_item${item.id}`}
+                    modalTitle="Are you sure delete this item from your cart ?"
+                    modalConfirmFunction={() => handleDeleteCartItem(item.id)}
+                    modalConfirmText="Delete"
+                  />
                 </div>
               </motion.div>
             ))}

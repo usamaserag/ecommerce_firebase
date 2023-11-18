@@ -206,7 +206,7 @@ const App = () => {
                 : "full_page bg-emerald-100"
             }
           >
-            <div className={user && "container my-0 mx-auto min-h-screen"}>
+            <div className={user && "min-h-screen"}>
               {user && <Navbar />}
               <Routes>
                 <Route

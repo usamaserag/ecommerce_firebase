@@ -125,6 +125,7 @@ import {
 import { StateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
+import Modal from "./Modal";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -172,7 +173,7 @@ const Navbar = () => {
           </label>
           <div
             tabIndex={0}
-            className="z-[1] card card-compact dropdown-content w-60 shadow bg-white rounded-md mt-7 overflow-y-scroll max-h-[80vh]"
+            className="z-[1] card card-compact dropdown-content w-60 shadow border border-primary bg-white rounded-md mt-7 overflow-y-auto max-h-[80vh]"
           >
             <div className="card-body">
               {cartCount > 0 && (
@@ -204,7 +205,7 @@ const Navbar = () => {
                     </div>
                   ))}
               {totalCart > 0 && (
-                <span className="flex items-center justify-between">
+                <span className="flex items-center justify-between mt-4">
                   <span className="font-semibold">Subtotal:</span>{" "}
                   <b className="text-primary">{totalCart.toFixed(2)}</b>
                 </span>
@@ -243,14 +244,56 @@ const Navbar = () => {
             >
               <FaHeart className="text-sm" />
               <span>Wishlist</span>
+              {wishlistCount > 0 && (
+                <span className="text-xs w-5 h-5 bg-primary text-white flex items-center justify-center rounded-md">
+                  {wishlistCount}
+                </span>
+              )}
             </Link>
-            <button
-              onClick={handleLogout}
-              className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full"
+            {/* <button
+              onClick={() => document.getElementById("my_modal_5").showModal()}
             >
-              <FaSignOutAlt className="text-sm" />
-              <span>Logout</span>
+              <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                <FaSignOutAlt className="text-sm" />
+                <span>Logout</span>
+              </div>
             </button>
+            <dialog
+              id="my_modal_5"
+              className="modal modal-bottom sm:modal-middle"
+            >
+              <div className="modal-box bg-white p-10">
+                <p className="text-center">Are you sure you want log out!</p>
+                <div className="modal-action">
+                  <form
+                    method="dialog"
+                    className="flex items-center justify-evenly w-full"
+                  >
+                    <button className="border border-primary rounded-md py-2 px-8 w-fit">
+                      Close
+                    </button>
+                    <button
+                      className="bg-primary text-white rounded-md py-2 px-8 w-fit"
+                      onClick={handleLogout}
+                    >
+                      Sign out
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog> */}
+            <Modal
+              modalConfirmFunction={handleLogout}
+              modalText={
+                <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                  <FaSignOutAlt className="text-sm" />
+                  <span>Logout</span>
+                </div>
+              }
+              modalId="logout_modal"
+              modalTitle="Are you sure you want log out ?"
+              modalConfirmText="log out"
+            />
           </ul>
         </div>
       </div>
