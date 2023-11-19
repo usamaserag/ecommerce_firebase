@@ -22,7 +22,7 @@ const Modal = ({
         </div>
       </button>
       <dialog id={modalId} className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box bg-white p-10">
+        <div className="md:w-2/4 w-3/4 bg-white py-6 px-2 rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <p className="text-center">{modalTitle}</p>
           <div className="modal-action">
             <form
@@ -30,13 +30,13 @@ const Modal = ({
               className="flex items-center justify-evenly w-full"
             >
               <button
-                className="border border-primary rounded-md py-2 px-8 w-fit"
+                className="border border-primary rounded-md py-2 px-8 max-w-fit"
                 onClick={() => document.getElementById(modalId).close()}
               >
                 Close
               </button>
               <button
-                className="bg-primary text-white rounded-md py-2 px-8 w-fit"
+                className="bg-primary text-white rounded-md py-2 px-8 max-w-fit"
                 onClick={modalConfirmFunction}
               >
                 {modalConfirmText}

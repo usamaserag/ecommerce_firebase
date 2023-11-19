@@ -5,6 +5,9 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import Modal from "../components/Modal";
 import QuantityButton from "../components/QuantityButton";
 import TotalCart from "../components/TotalCart";
+import emptyCart from "../assets/images/empty_cart.svg";
+import { Link } from "react-router-dom";
+
 
 const Cart = () => {
   const {
@@ -17,11 +20,18 @@ const Cart = () => {
 
   return (
     <div className="content">
-      <div className="grid grid-cols-4 gap-4">
+      <div className={`${cart.length > 0 && 'grid grid-cols-4 gap-4'}`}>
         <div className="md:col-span-3 col-span-4">
           <AnimatePresence>
             {cart.length === 0 ? (
-              <p>No products in your cart</p>
+              <div className="flex flex-col items-center gap-6">
+                <div className="w-24 h-24">
+                  <img src={emptyCart} alt="empty_cart" />
+                </div>
+                <p>Your cart is empty!</p>
+                <small>Browse our categories and discover our best deals!</small>
+                <Link to="/" className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4">START SHOPPING</Link>
+              </div>
             ) : (
               cart.map((item, index) => (
                 <motion.div
@@ -41,10 +51,12 @@ const Cart = () => {
                       index < cart.length - 1 ? "border-b" : ""
                     }`}
                   >
-                    <div className="w-20 h-20 bg-white rounded-md flex items-center justify-center flex-none">
-                      <div className="w-14 h-14">
-                        <img src={item.image} alt="product_image" />
-                      </div>
+                    <div className="md:w-20 md:h-20 w-14 h-14 bg-white rounded-md flex items-center justify-center flex-none">
+                      <img
+                        className="md:w-14 md:h-14 w-10 h-10"
+                        src={item.image}
+                        alt="product_image"
+                      />
                     </div>
                     <div className="h-20 flex flex-col justify-around max-w-[200px] w-full">
                       <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis">
@@ -58,9 +70,14 @@ const Cart = () => {
                           <small>x</small>
                           <b className="cart_item_price_total">{item.price}</b>
                         </div>
+                        <b className="md:hidden block">
+                          {item.quantity * item.price}
+                        </b>
                       </div>
                     </div>
-                    <b>{item.quantity * item.price}</b>
+                    <b className="md:block hidden">
+                      {item.quantity * item.price}
+                    </b>
                     <QuantityButton
                       productQuantity={item.quantity}
                       handleIncrement={() => addToCart(item)}
@@ -70,7 +87,7 @@ const Cart = () => {
                       modalText={
                         <span className="bg-red-500 text-white p-2 text-sm rounded-md flex items-center justify-center gap-2">
                           <FaRegTrashAlt />
-                          <span>REMOVE</span>
+                          <span className="md:block hidden">REMOVE</span>
                         </span>
                       }
                       modalId={`remove_cart_item${item.id}`}
@@ -84,7 +101,7 @@ const Cart = () => {
             )}
           </AnimatePresence>
         </div>
-        <TotalCart totalCart={totalCart.toFixed(2)} />
+        {totalCart > 0 && <TotalCart totalCart={totalCart.toFixed(2)} />}
       </div>
     </div>
   );

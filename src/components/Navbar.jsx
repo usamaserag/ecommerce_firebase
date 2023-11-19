@@ -110,7 +110,7 @@
 
 // export default Navbar;
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FaMoon,
@@ -151,6 +151,10 @@ const Navbar = () => {
       console.error("Error logging out:", error);
     }
   };
+
+  useEffect(() => {
+    console.log(user)
+  },[])
 
   return (
     <div className="navbar px-4 shadow-md">
@@ -224,7 +228,7 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="avatar cursor-pointer">
             <div className="w-10 rounded-full">
-              <img alt="user" src={user?.photoURL} />
+              <img alt="user" src={user.photoURL ? user.photoURL : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stignatius.co.uk%2Fst-ignatius-church%2Fcontact-us%2Fdefault-user-icon%2F&psig=AOvVaw3PQKKL-lMx6ICeIcsB-RK7&ust=1700444348839000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJC48_32zoIDFQAAAAAdAAAAABAE"} />
             </div>
           </label>
           <ul
@@ -302,3 +306,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

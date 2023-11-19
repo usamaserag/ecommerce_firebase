@@ -11,7 +11,7 @@ const QuantityButton = ({
       <div className="flex items-center gap-2">
         <button
           disabled={productQuantity === 1}
-          className={`p-2 rounded-md ${
+          className={`md:p-2 p-1 rounded-md ${
             productQuantity === 1
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
               : "bg-primary text-white"
@@ -22,7 +22,7 @@ const QuantityButton = ({
         </button>
         <span className="w-6 text-center">{productQuantity}</span>
         <button
-          className="bg-primary text-white p-2 rounded-md"
+          className="bg-primary text-white md:p-2 p-1 rounded-md"
           onClick={handleIncrement}
         >
           <FaPlus />

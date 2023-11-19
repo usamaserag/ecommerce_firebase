@@ -2,7 +2,7 @@ import React from "react";
 
 const TotalCart = ({ totalCart }) => {
   return (
-    <div className="md:col-span-1 col-span-2 shadow-xl bg-white p-4 rounded-lg h-fit">
+    <div className="md:col-span-1 sm:col-span-2 col-span-4 shadow-xl bg-white p-4 rounded-lg h-fit">
       <div className="">
         <h2 className="text-center font-medium text-base">CART SUMMARY</h2>
         <p className="flex items-center justify-between my-4">
