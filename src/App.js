@@ -2,7 +2,12 @@ import React, { useState, useEffect, createContext } from "react";
 import { ConfigProvider } from "antd";
 import Navbar from "./components/Navbar";
 import ProductPage from "./pages/ProductPage";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Cart from "./pages/Cart.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import Profile from "./pages/Profile.jsx";
@@ -207,12 +212,18 @@ const App = () => {
               <NavWrapper children={<Navbar />} />
 
               <Routes>
+                <Route path="/" element={<Products />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
-                <Route path="/" element={<Products />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-                <Route path="/user" element={<Profile />} />
+                <Route
+                  path="/wishlist"
+                  element={user ? <Wishlist /> : <Navigate to="/login" />}
+                />
+                <Route
+                  path="/user"
+                  element={user ? <Profile /> : <Navigate to="/login" />}
+                />
 
                 <Route path="/forgetpassword" element={<ForgetPassword />} />
                 <Route path="/product/:id" element={<ProductPage />} />

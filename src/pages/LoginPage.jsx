@@ -120,7 +120,7 @@ const LoginPage = () => {
               />
               {state.password.length > 0 && (
                 <FaEye
-                  className="text-gray-400 cursor-pointer transition-all duration-200 hover:text-gray-600 absolute right-1 inset-y-2/4 -translate-y-2/4"
+                  className="text-gray-400 cursor-pointer transition-all duration-200 hover:text-gray-600 absolute right-2 inset-y-2/4 -translate-y-2/4"
                   onMouseDown={startTogglePasswordInput}
                   onMouseUp={endTogglePasswordInput}
                 />

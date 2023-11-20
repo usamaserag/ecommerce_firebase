@@ -6,7 +6,6 @@ const NavWrapper = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log("location", location.pathname);
     if (location.pathname === "/login") {
       setIsInLogin(false);
     } else {

@@ -110,39 +110,20 @@
 
 // export default Navbar;
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaMoon,
-  FaSun,
-  FaSignOutAlt,
-  FaShoppingCart,
-  FaHeart,
-  FaUser,
-  FaEnvelope,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaSignOutAlt, FaShoppingCart, FaHeart, FaUser } from "react-icons/fa";
 import { StateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 import Modal from "./Modal";
-import userImage from "../assets/images/useer.jpeg";
+import userImage from "../assets/images/User.jpg";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const auth = firebase.auth();
-  const {
-    cartCount,
-    wishlistCount,
-    darkMode,
-    toggleDarkMode,
-    categories,
-    handleFilter,
-    selectedCategory,
-    cart,
-    totalCart,
-    user,
-  } = useContext(StateContext);
+  const { cartCount, wishlistCount, cart, totalCart, user } =
+    useContext(StateContext);
 
   const handleLogout = async () => {
     try {
@@ -152,10 +133,6 @@ const Navbar = () => {
       console.error("Error logging out:", error);
     }
   };
-
-  useEffect(() => {
-    console.log(user);
-  }, []);
 
   return (
     <div className="navbar px-4 shadow-md">
@@ -229,7 +206,11 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="avatar cursor-pointer">
             <div className="w-10 rounded-full">
-              <img alt="user" src={user ? user.photoURL : userImage} />
+              {user && user.photoURL ? (
+                <img alt="user" src={user.photoURL} />
+              ) : (
+                <img alt="default" src={userImage} />
+              )}
             </div>
           </label>
           <ul
@@ -239,7 +220,7 @@ const Navbar = () => {
             {!user && (
               <Link
                 to="/login"
-                className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
+                className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
               >
                 SIGN IN
               </Link>

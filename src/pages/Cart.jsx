@@ -8,7 +8,6 @@ import TotalCart from "../components/TotalCart";
 import emptyCart from "../assets/images/empty_cart.svg";
 import { Link } from "react-router-dom";
 
-
 const Cart = () => {
   const {
     cart,
@@ -20,7 +19,7 @@ const Cart = () => {
 
   return (
     <div className="content">
-      <div className={`${cart.length > 0 && 'grid grid-cols-4 gap-4'}`}>
+      <div className={`${cart.length > 0 && "grid grid-cols-4 gap-4"}`}>
         <div className="md:col-span-3 col-span-4">
           <AnimatePresence>
             {cart.length === 0 ? (
@@ -29,8 +28,15 @@ const Cart = () => {
                   <img src={emptyCart} alt="empty_cart" />
                 </div>
                 <p>Your cart is empty!</p>
-                <small>Browse our categories and discover our best deals!</small>
-                <Link to="/" className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4">START SHOPPING</Link>
+                <small>
+                  Browse our categories and discover our best deals!
+                </small>
+                <Link
+                  to="/"
+                  className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4"
+                >
+                  START SHOPPING
+                </Link>
               </div>
             ) : (
               cart.map((item, index) => (
@@ -47,7 +53,7 @@ const Cart = () => {
                   key={item.id}
                 >
                   <div
-                    className={`flex items-center justify-between p-2 border-primary ${
+                    className={`flex flex-wrap gap-2 items-center justify-between p-2 border-primary ${
                       index < cart.length - 1 ? "border-b" : ""
                     }`}
                   >
@@ -78,11 +84,13 @@ const Cart = () => {
                     <b className="md:block hidden">
                       {item.quantity * item.price}
                     </b>
-                    <QuantityButton
-                      productQuantity={item.quantity}
-                      handleIncrement={() => addToCart(item)}
-                      handleDecrement={() => handleRemoveFromCart(item.id)}
-                    />
+
+                      <QuantityButton
+                        productQuantity={item.quantity}
+                        handleIncrement={() => addToCart(item)}
+                        handleDecrement={() => handleRemoveFromCart(item.id)}
+                      />
+
                     <Modal
                       modalText={
                         <span className="bg-red-500 text-white p-2 text-sm rounded-md flex items-center justify-center gap-2">
