@@ -2,12 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import { ConfigProvider } from "antd";
 import Navbar from "./components/Navbar";
 import ProductPage from "./pages/ProductPage";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cart from "./pages/Cart.jsx";
 import Wishlist from "./pages/Wishlist.jsx";
 import Profile from "./pages/Profile.jsx";
@@ -15,6 +10,8 @@ import Products from "./pages/Products.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
+import NavWrapper from "./components/NavWrapper.jsx";
+
 import firebase from "./firebase";
 import ForgetPassword from "./pages/ForgetPassword";
 import Loading from "./components/Loading";
@@ -206,21 +203,17 @@ const App = () => {
                 : "full_page bg-emerald-100"
             }
           >
-            <div className={user && "min-h-screen"}>
-              {user && <Navbar />}
+            <div className="min-h-screen">
+              <NavWrapper children={<Navbar />} />
+
               <Routes>
-                <Route
-                  path="/login"
-                  element={user ? <Navigate to="/" /> : <LoginPage />}
-                />
-                <Route
-                  path="/"
-                  element={user ? <Products /> : <Navigate to="/login" />}
-                />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/" element={<Products />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/user" element={<Profile />} />
-                <Route path="/signup" element={<SignupPage />} />
+
                 <Route path="/forgetpassword" element={<ForgetPassword />} />
                 <Route path="/product/:id" element={<ProductPage />} />
               </Routes>

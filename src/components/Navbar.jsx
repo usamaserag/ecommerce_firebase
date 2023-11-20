@@ -126,6 +126,7 @@ import { StateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 import Modal from "./Modal";
+import userImage from "../assets/images/useer.jpeg";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -153,8 +154,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    console.log(user)
-  },[])
+    console.log(user);
+  }, []);
 
   return (
     <div className="navbar px-4 shadow-md">
@@ -228,13 +229,21 @@ const Navbar = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="avatar cursor-pointer">
             <div className="w-10 rounded-full">
-              <img alt="user" src={user.photoURL ? user.photoURL : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.stignatius.co.uk%2Fst-ignatius-church%2Fcontact-us%2Fdefault-user-icon%2F&psig=AOvVaw3PQKKL-lMx6ICeIcsB-RK7&ust=1700444348839000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJC48_32zoIDFQAAAAAdAAAAABAE"} />
+              <img alt="user" src={user ? user.photoURL : userImage} />
             </div>
           </label>
           <ul
             tabIndex={0}
             className="dropdown-content mt-3 z-[1] p-2 shadow rounded-md w-52 bg-white"
           >
+            {!user && (
+              <Link
+                to="/login"
+                className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
+              >
+                SIGN IN
+              </Link>
+            )}
             <Link
               to="/user"
               className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
@@ -254,50 +263,20 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-            {/* <button
-              onClick={() => document.getElementById("my_modal_5").showModal()}
-            >
-              <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
-                <FaSignOutAlt className="text-sm" />
-                <span>Logout</span>
-              </div>
-            </button>
-            <dialog
-              id="my_modal_5"
-              className="modal modal-bottom sm:modal-middle"
-            >
-              <div className="modal-box bg-white p-10">
-                <p className="text-center">Are you sure you want log out!</p>
-                <div className="modal-action">
-                  <form
-                    method="dialog"
-                    className="flex items-center justify-evenly w-full"
-                  >
-                    <button className="border border-primary rounded-md py-2 px-8 w-fit">
-                      Close
-                    </button>
-                    <button
-                      className="bg-primary text-white rounded-md py-2 px-8 w-fit"
-                      onClick={handleLogout}
-                    >
-                      Sign out
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </dialog> */}
-            <Modal
-              modalConfirmFunction={handleLogout}
-              modalText={
-                <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
-                  <FaSignOutAlt className="text-sm" />
-                  <span>Logout</span>
-                </div>
-              }
-              modalId="logout_modal"
-              modalTitle="Are you sure you want log out ?"
-              modalConfirmText="log out"
-            />
+            {user && (
+              <Modal
+                modalConfirmFunction={handleLogout}
+                modalText={
+                  <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                    <FaSignOutAlt className="text-sm" />
+                    <span>Logout</span>
+                  </div>
+                }
+                modalId="logout_modal"
+                modalTitle="Are you sure you want log out ?"
+                modalConfirmText="log out"
+              />
+            )}
           </ul>
         </div>
       </div>
@@ -306,4 +285,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
