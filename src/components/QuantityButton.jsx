@@ -18,14 +18,14 @@ const QuantityButton = ({
           }`}
           onClick={handleDecrement}
         >
-          <FaMinus />
+          <FaMinus className="text-sm" />
         </button>
         <span className="w-6 text-center">{productQuantity}</span>
         <button
           className="bg-primary text-white md:p-2 p-1 rounded-md"
           onClick={handleIncrement}
         >
-          <FaPlus />
+          <FaPlus className="text-sm" />
         </button>
       </div>
     </div>

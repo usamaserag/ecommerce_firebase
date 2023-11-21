@@ -110,14 +110,16 @@
 
 // export default Navbar;
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaSignOutAlt, FaShoppingCart, FaHeart, FaUser } from "react-icons/fa";
 import { StateContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 import Modal from "./Modal";
-import userImage from "../assets/images/User.jpg";
+import userImage from "../assets/images/user.jpg";
+import { motion } from "framer-motion";
+import { debounce } from "lodash";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -134,134 +136,306 @@ const Navbar = () => {
     }
   };
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = debounce(() => {
+      const currentPosition = window.scrollY;
+      setScrollPosition(currentPosition);
+    }, 50); // Adjust the debounce time as needed
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="navbar px-4 shadow-md">
-      <div className="flex-1">
-        <Link to="/">
-          <div className="navbar_logo">Serag</div>
-        </Link>
-      </div>
-      <div className="flex items-center gap-8">
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="cursor-pointer">
-            <span className="relative flex items-center justify-center">
-              <FaShoppingCart className="text-lg" />
-              {cartCount > 0 && (
-                <span className="absolute text-xs top-[-15px] right-[-15px] w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </span>
-          </label>
-          <div
-            tabIndex={0}
-            className="z-[1] card card-compact dropdown-content w-60 shadow border border-primary bg-white rounded-md mt-7 overflow-y-auto max-h-[80vh]"
-          >
-            <div className="card-body">
-              {cartCount > 0 && (
-                <span className="font-medium text-lg">{cartCount} Items</span>
-              )}
-              {cart.length < 1
-                ? "No products in your cart"
-                : cart.map((item) => (
-                    <div
-                      className="flex flex-col gap-1 border-b py-1"
-                      key={item.id}
-                    >
-                      <div className="w-8 h-8">
-                        <img src={item.image} alt="product_image" />
-                      </div>
-                      <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-                        {item.title}
-                      </h5>
-                      <div className="flex items-center gap-2 justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="cart_item_price">
-                            {item.quantity}
-                          </span>
-                          <small>x</small>
-                          <b className="cart_item_price_total">{item.price}</b>
-                        </div>
-                        <b>{item.quantity * item.price}</b>
-                      </div>
-                    </div>
-                  ))}
-              {totalCart > 0 && (
-                <span className="flex items-center justify-between mt-4">
-                  <span className="font-semibold">Subtotal:</span>{" "}
-                  <b className="text-primary">{totalCart.toFixed(2)}</b>
-                </span>
-              )}
-              {totalCart > 0 && (
-                <Link
-                  to="/cart"
-                  className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4"
+    <>
+      {scrollPosition < 130 ? (
+        <div className="shadow-md bg-white h-20">
+          <div className="container m-auto flex items-center h-full">
+            <div className="flex-1">
+              <Link to="/">
+                <div className="navbar_logo">Serag</div>
+              </Link>
+            </div>
+            <div className="flex items-center gap-8">
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="cursor-pointer">
+                  <span className="relative flex items-center justify-center">
+                    <FaShoppingCart className="text-2xl hover:text-primary" />
+                    {cartCount > 0 && (
+                      <span className="absolute text-xs top-[-15px] right-[-15px] w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center">
+                        {cartCount}
+                      </span>
+                    )}
+                  </span>
+                </label>
+                <div
+                  tabIndex={0}
+                  className="z-[1] card card-compact dropdown-content w-60 shadow border border-primary bg-white rounded-md mt-8 overflow-y-auto max-h-[80vh]"
                 >
-                  View cart
-                </Link>
-              )}
+                  <div className="card-body">
+                    {cartCount > 0 && (
+                      <span className="font-medium text-lg">
+                        {cartCount} Items
+                      </span>
+                    )}
+                    {cart.length < 1
+                      ? "No products in your cart"
+                      : cart.map((item) => (
+                          <div
+                            className="flex flex-col gap-1 border-b py-1"
+                            key={item.id}
+                          >
+                            <div className="w-8 h-8">
+                              <img src={item.image} alt="product_image" />
+                            </div>
+                            <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                              {item.title}
+                            </h5>
+                            <div className="flex items-center gap-2 justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="cart_item_price">
+                                  {item.quantity}
+                                </span>
+                                <small>x</small>
+                                <b className="cart_item_price_total">
+                                  {item.price}
+                                </b>
+                              </div>
+                              <b>{item.quantity * item.price}</b>
+                            </div>
+                          </div>
+                        ))}
+                    {totalCart > 0 && (
+                      <span className="flex items-center justify-between mt-4">
+                        <span className="font-semibold">Subtotal:</span>{" "}
+                        <b className="text-primary">{totalCart.toFixed(2)}</b>
+                      </span>
+                    )}
+                    {totalCart > 0 && (
+                      <Link
+                        to="/cart"
+                        className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4"
+                      >
+                        View cart
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="avatar cursor-pointer">
+                  <div className="w-10 rounded-full">
+                    {user && user.photoURL ? (
+                      <img alt="user" src={user.photoURL} />
+                    ) : (
+                      <img alt="default" src={userImage} />
+                    )}
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content mt-5 z-[1] p-2 shadow rounded-md w-52 bg-white"
+                >
+                  {!user && (
+                    <Link
+                      to="/login"
+                      className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
+                    >
+                      SIGN IN
+                    </Link>
+                  )}
+                  <Link
+                    to="/user"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                  >
+                    <FaUser className="text-sm" />
+                    <span>Profile</span>
+                  </Link>
+                  <Link
+                    to="/wishlist"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                  >
+                    <FaHeart className="text-sm" />
+                    <span>Wishlist</span>
+                    {wishlistCount > 0 && (
+                      <span className="text-xs w-5 h-5 bg-primary text-white flex items-center justify-center rounded-md">
+                        {wishlistCount}
+                      </span>
+                    )}
+                  </Link>
+                  {user && (
+                    <Modal
+                      modalConfirmFunction={handleLogout}
+                      modalText={
+                        <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                          <FaSignOutAlt className="text-sm" />
+                          <span>Logout</span>
+                        </div>
+                      }
+                      modalId="logout_modal"
+                      modalTitle="Are you sure you want log out ?"
+                      modalConfirmText="log out"
+                    />
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="avatar cursor-pointer">
-            <div className="w-10 rounded-full">
-              {user && user.photoURL ? (
-                <img alt="user" src={user.photoURL} />
-              ) : (
-                <img alt="default" src={userImage} />
-              )}
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content mt-3 z-[1] p-2 shadow rounded-md w-52 bg-white"
-          >
-            {!user && (
-              <Link
-                to="/login"
-                className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
-              >
-                SIGN IN
+      ) : (
+        <motion.nav
+          className="fixed top-0 left-0 right-0 shadow-md bg-white h-20"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{
+            opacity: scrollPosition > 130 ? 1 : 0,
+            y: scrollPosition > 130 ? 0 : -30,
+          }}
+          transition={{
+            duration: 0.7,
+            type: "spring",
+            damping: 15,
+            stiffness: 500,
+          }}
+        >
+          <div className="container m-auto flex items-center h-full">
+            <div className="flex-1">
+              <Link to="/">
+                <div className="navbar_logo">Serag</div>
               </Link>
-            )}
-            <Link
-              to="/user"
-              className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
-            >
-              <FaUser className="text-sm" />
-              <span>Profile</span>
-            </Link>
-            <Link
-              to="/wishlist"
-              className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
-            >
-              <FaHeart className="text-sm" />
-              <span>Wishlist</span>
-              {wishlistCount > 0 && (
-                <span className="text-xs w-5 h-5 bg-primary text-white flex items-center justify-center rounded-md">
-                  {wishlistCount}
-                </span>
-              )}
-            </Link>
-            {user && (
-              <Modal
-                modalConfirmFunction={handleLogout}
-                modalText={
-                  <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
-                    <FaSignOutAlt className="text-sm" />
-                    <span>Logout</span>
+            </div>
+            <div className="flex items-center gap-8">
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="cursor-pointer">
+                  <span className="relative flex items-center justify-center">
+                    <FaShoppingCart className="text-2xl hover:text-primary" />
+                    {cartCount > 0 && (
+                      <span className="absolute text-xs top-[-15px] right-[-15px] w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center">
+                        {cartCount}
+                      </span>
+                    )}
+                  </span>
+                </label>
+                <div
+                  tabIndex={0}
+                  className="z-[1] card card-compact dropdown-content w-60 shadow border border-primary bg-white rounded-md mt-8 overflow-y-auto max-h-[80vh]"
+                >
+                  <div className="card-body">
+                    {cartCount > 0 && (
+                      <span className="font-medium text-lg">
+                        {cartCount} Items
+                      </span>
+                    )}
+                    {cart.length < 1
+                      ? "No products in your cart"
+                      : cart.map((item) => (
+                          <div
+                            className="flex flex-col gap-1 border-b py-1"
+                            key={item.id}
+                          >
+                            <div className="w-8 h-8">
+                              <img src={item.image} alt="product_image" />
+                            </div>
+                            <h5 className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                              {item.title}
+                            </h5>
+                            <div className="flex items-center gap-2 justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="cart_item_price">
+                                  {item.quantity}
+                                </span>
+                                <small>x</small>
+                                <b className="cart_item_price_total">
+                                  {item.price}
+                                </b>
+                              </div>
+                              <b>{item.quantity * item.price}</b>
+                            </div>
+                          </div>
+                        ))}
+                    {totalCart > 0 && (
+                      <span className="flex items-center justify-between mt-4">
+                        <span className="font-semibold">Subtotal:</span>{" "}
+                        <b className="text-primary">{totalCart.toFixed(2)}</b>
+                      </span>
+                    )}
+                    {totalCart > 0 && (
+                      <Link
+                        to="/cart"
+                        className="bg-primary hover:bg-primaryHover text-white py-2 px-6 m-auto rounded-md mt-4"
+                      >
+                        View cart
+                      </Link>
+                    )}
                   </div>
-                }
-                modalId="logout_modal"
-                modalTitle="Are you sure you want log out ?"
-                modalConfirmText="log out"
-              />
-            )}
-          </ul>
-        </div>
-      </div>
-    </div>
+                </div>
+              </div>
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="avatar cursor-pointer">
+                  <div className="w-10 rounded-full">
+                    {user && user.photoURL ? (
+                      <img alt="user" src={user.photoURL} />
+                    ) : (
+                      <img alt="default" src={userImage} />
+                    )}
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content mt-5 z-[1] p-2 shadow rounded-md w-52 bg-white"
+                >
+                  {!user && (
+                    <Link
+                      to="/login"
+                      className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
+                    >
+                      SIGN IN
+                    </Link>
+                  )}
+                  <Link
+                    to="/user"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                  >
+                    <FaUser className="text-sm" />
+                    <span>Profile</span>
+                  </Link>
+                  <Link
+                    to="/wishlist"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                  >
+                    <FaHeart className="text-sm" />
+                    <span>Wishlist</span>
+                    {wishlistCount > 0 && (
+                      <span className="text-xs w-5 h-5 bg-primary text-white flex items-center justify-center rounded-md">
+                        {wishlistCount}
+                      </span>
+                    )}
+                  </Link>
+                  {user && (
+                    <Modal
+                      modalConfirmFunction={handleLogout}
+                      modalText={
+                        <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                          <FaSignOutAlt className="text-sm" />
+                          <span>Logout</span>
+                        </div>
+                      }
+                      modalId="logout_modal"
+                      modalTitle="Are you sure you want log out ?"
+                      modalConfirmText="log out"
+                    />
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </motion.nav>
+      )}
+    </>
   );
 };
 

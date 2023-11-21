@@ -16,6 +16,7 @@ import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import { useAuthState } from "react-firebase-hooks/auth";
 import NavWrapper from "./components/NavWrapper.jsx";
+import TopSmallNavbar from "./components/TopSmallNavbar.jsx"
 
 import firebase from "./firebase";
 import ForgetPassword from "./pages/ForgetPassword";
@@ -209,7 +210,7 @@ const App = () => {
             }
           >
             <div className="min-h-screen">
-              <NavWrapper children={<Navbar />} />
+              <NavWrapper children={<div><TopSmallNavbar /><Navbar /></div>} />
 
               <Routes>
                 <Route path="/" element={<Products />} />

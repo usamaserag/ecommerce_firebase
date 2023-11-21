@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StarRating from "../components/StarRating";
+import Loading from "../components/Loading";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const ProductPage = () => {
   }, [id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

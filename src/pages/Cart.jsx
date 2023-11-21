@@ -18,7 +18,7 @@ const Cart = () => {
   } = useContext(StateContext);
 
   return (
-    <div className="content">
+    <div className="container m-auto py-4">
       <div className={`${cart.length > 0 && "grid grid-cols-4 gap-4"}`}>
         <div className="md:col-span-3 col-span-4">
           <AnimatePresence>
@@ -94,8 +94,8 @@ const Cart = () => {
                     <Modal
                       modalText={
                         <span className="bg-red-500 text-white p-2 text-sm rounded-md flex items-center justify-center gap-2">
-                          <FaRegTrashAlt />
-                          <span className="md:block hidden">REMOVE</span>
+                          <FaRegTrashAlt className="text-xs" />
+                          <span className="md:block hidden text-xs">REMOVE</span>
                         </span>
                       }
                       modalId={`remove_cart_item${item.id}`}

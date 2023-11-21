@@ -7,7 +7,7 @@ const Profile = () => {
     console.log(user);
   }, [user]);
   return (
-    <div className="content">
+    <div className="container m-auto py-4">
       <div className="flex items-center gap-2">
         <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
           <img

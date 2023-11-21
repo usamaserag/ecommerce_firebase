@@ -3,16 +3,7 @@ import React from "react";
 const Loading = () => {
   return (
     <div className="loading-container">
-      <div className="lds-roller">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      <span class="loader"></span>
     </div>
   );
 };
