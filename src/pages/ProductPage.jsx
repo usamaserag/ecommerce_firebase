@@ -45,6 +45,7 @@ const ProductPage = () => {
               productQuantity={product.quantity}
               handleIncrement={() => addToCart(product)}
               handleDecrement={() => handleRemoveFromCart(product.id)}
+              isInProductPage={true}
             />
           ) : (
             <button onClick={() => addToCart(product)} className="bg-primary hover:bg-primaryHover text-white py-3 rounded-md flex items-center justify-center gap-2">
