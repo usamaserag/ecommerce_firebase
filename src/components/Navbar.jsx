@@ -155,7 +155,7 @@ const Navbar = () => {
     <>
       {scrollPosition < 130 ? (
         <div className="shadow-md bg-white h-20">
-          <div className="container m-auto flex items-center h-full">
+          <div className="container m-auto flex items-center h-full navbar_btn">
             <div className="flex-1">
               <Link to="/">
                 <div className="navbar_logo">Serag</div>
@@ -302,7 +302,7 @@ const Navbar = () => {
             stiffness: 500,
           }}
         >
-          <div className="container m-auto flex items-center h-full">
+          <div className="container m-auto flex items-center h-full navbar_btn">
             <div className="flex-1">
               <Link to="/">
                 <div className="navbar_logo">Serag</div>

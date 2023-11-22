@@ -19,7 +19,7 @@ const StarRating = ({ rating }) => {
     stars.push(<FaRegStar key={i + filledStars} className="star empty" />);
   }
 
-  return <div className="rating-stars">{stars}</div>;
+  return <div className="flex items-center gap-1 text-xl">{stars}</div>;
 };
 
 

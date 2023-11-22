@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#00b96b',
-        primaryHover: '#00d96b',
+        primaryHover: '#03c564',
         white: '#ffffff'
       },
       boxShadow: {

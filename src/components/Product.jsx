@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import StarRating from "./StarRating";
+// import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 import { FaHeart, FaPlus, FaMinus } from "react-icons/fa";
 import Button from "./Button";
@@ -49,7 +49,7 @@ const Product = ({ product }) => {
       <h4 className="product_title">{product.title}</h4>
       <p className="product_description">{product.description}</p>
       <h3 className="product_price">{product.price}</h3>
-      <StarRating rating={product.rating.rate} />
+      {/* <StarRating rating={product.rating.rate} /> */}
       <Button
         text={<FaHeart className={`${isInWishlist ? "coloredHeart heart_icon" : "heart_icon"}`} />}
         handleClick={toggleWishlist}
