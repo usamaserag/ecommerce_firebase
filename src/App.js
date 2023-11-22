@@ -52,13 +52,15 @@ const App = () => {
     try {
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      const updatedData = await data.map((product) => ({
+
+      const updatedData = data.map((product) => ({
         ...product,
         quantity: 0,
       }));
+
       setProducts(updatedData);
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error("Error fetching products:", error);
     }
   };
 

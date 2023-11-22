@@ -7,14 +7,16 @@ import { FaShoppingCart } from "react-icons/fa";
 import QuantityButton from "../components/QuantityButton";
 
 const ProductPage = () => {
-  const { addToCart, handleRemoveFromCart, products } = useContext(StateContext);
+  const { addToCart, handleRemoveFromCart, products, cart } = useContext(StateContext);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    const itemSelected = products.find(item => parseInt(item.id) === parseInt(id))
-    setProduct(itemSelected)
-  }, [id, products])
+    const itemSelected = products.find(item => parseInt(item.id) === parseInt(id));
+    const cartItem = cart.find(item => item.id === itemSelected?.id);
+    const updatedProduct = { ...itemSelected, quantity: cartItem?.quantity || 0 };
+    setProduct(updatedProduct);
+  }, [id, products, cart]);
 
   if (!product) {
     return <Loading />;

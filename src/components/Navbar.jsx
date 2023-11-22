@@ -244,7 +244,7 @@ const Navbar = () => {
                   {!user && (
                     <Link
                       to="/login"
-                      className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
+                      className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto block my-2 rounded-md w-fit"
                     >
                       SIGN IN
                     </Link>
@@ -391,7 +391,7 @@ const Navbar = () => {
                   {!user && (
                     <Link
                       to="/login"
-                      className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto my-2 rounded-md w-fit"
+                      className="bg-primary hover:bg-primaryHover text-sm text-white py-2 px-6 m-auto block my-2 rounded-md w-fit"
                     >
                       SIGN IN
                     </Link>
