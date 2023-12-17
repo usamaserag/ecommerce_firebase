@@ -17,7 +17,7 @@ const Modal = ({
   return (
     <>
       <button onClick={showModal}>
-        <div className="flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+        <div className="flex items-center gap-2 rounded-md hover:bg-gray-200 w-full">
           {modalText}
         </div>
       </button>

@@ -101,14 +101,14 @@ const SignupPage = () => {
   return isSignUp ? (
     <Loading />
   ) : (
-    <div className="flex items-center justify-center h-screen bg-emerald-100">
+    <div className="flex items-center justify-center h-screen bg-gray-200">
       <div className="w-full flex flex-col gap-2 p-5 pt-14 md:w-1/2 shadow-xl rounded-xl m-5 bg-slate-50 relative">
       <div className="w-24 h-24 flex items-center justify-center rounded-full bg-slate-50 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="shadow-currentShadow flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100">
+          <div className="shadow-currentShadow flex items-center justify-center w-20 h-20 rounded-full bg-gray-200">
             <FaUserPlus className="text-xl text-primary" />
           </div>
         </div>
-        <div className="navbar_logo text-center">Serag</div>
+        <div className="navbar_logo text-3xl font-bold tracking-wider text-orange-500 text-center">Serag</div>
         <h3 className="text-center text-xl font-medium">
           Sign Up To Serag Store
         </h3>

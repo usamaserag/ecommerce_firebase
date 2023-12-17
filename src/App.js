@@ -207,8 +207,8 @@ const App = () => {
           <div
             className={
               !darkMode
-                ? "full_page bg-emerald-100"
-                : "full_page bg-emerald-100"
+                ? "full_page bg-gray-200"
+                : "full_page bg-gray-200"
             }
           >
             <div className="min-h-screen">

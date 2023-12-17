@@ -1,13 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 // import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
-import { FaHeart, FaPlus, FaMinus } from "react-icons/fa";
+import { FaHeart, FaPlus, FaMinus, FaRegHeart } from "react-icons/fa";
 import Button from "./Button";
 import { StateContext } from "../App";
 
 const Product = ({ product }) => {
-  const { addToWishlist, addToCart, handleRemoveFromCart, wishlist, cart, userId } =
-    useContext(StateContext);
+  const {
+    addToWishlist,
+    addToCart,
+    handleRemoveFromCart,
+    wishlist,
+    cart,
+    userId,
+  } = useContext(StateContext);
   const [isInWishlist, setIsInWishlist] = useState(
     wishlist.some((item) => item.id === product.id)
   );
@@ -28,9 +34,8 @@ const Product = ({ product }) => {
     addToWishlist(product, updatedWishlist);
   };
 
-
   const handleAddToCart = () => {
-    setIsInWishlist(true)
+    setIsInWishlist(true);
     addToCart(product);
   };
 
@@ -38,26 +43,44 @@ const Product = ({ product }) => {
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   return (
-    <div className="product">
+    <div className="product rounded-md bg-white transition-all duration-200 ease-in shadow-sm hover:shadow-cardShadow">
       <Link to={`/product/${product.id}`}>
-        <div className="product_img_container">
-          <div className="product_img">
-            <img src={product.image} alt="product_img" />
+        <div className="product_img_container rounded-md">
+          <div className="w-20 h-20 m-auto">
+            <img
+              src={product.image}
+              alt="product_img"
+              className="object-contain"
+            />
           </div>
         </div>
       </Link>
-      <h4 className="product_title">{product.title}</h4>
-      <p className="product_description">{product.description}</p>
-      <h3 className="product_price">{product.price}</h3>
-      {/* <StarRating rating={product.rating.rate} /> */}
-      <Button
-        text={<FaHeart className={`${isInWishlist ? "coloredHeart heart_icon" : "heart_icon"}`} />}
-        handleClick={toggleWishlist}
-      />
-      <div className="cart_btns_container">
+      <h4 className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-full">{product.title}</h4>
+      <p className="whitespace-nowrap overflow-hidden overflow-ellipsis max-w-full text-xs">{product.description}</p>
+      <div className="flex items-center justify-between">
+        <h3 className="font-bold">{product.price}</h3>
+        {isInWishlist ? (
+          <Button
+            text={<FaHeart className="text-primary text-lg" />}
+            handleClick={toggleWishlist}
+          />
+        ) : (
+          <Button
+            text={<FaRegHeart className="text-gray-400 text-lg" />}
+            handleClick={toggleWishlist}
+          />
+        )}
+      </div>
+
+      <div className="flex items-center gap-4">
         <Button text={<FaPlus />} handleClick={handleAddToCart} />
         {cartQuantity >= 1 && <p>{cartQuantity}</p>}
-        {isInCart && <Button text={<FaMinus />} handleClick={() => handleRemoveFromCart(product.id)} />}
+        {isInCart && (
+          <Button
+            text={<FaMinus />}
+            handleClick={() => handleRemoveFromCart(product.id)}
+          />
+        )}
       </div>
     </div>
   );

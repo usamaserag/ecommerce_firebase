@@ -155,10 +155,10 @@ const Navbar = () => {
     <>
       {scrollPosition < 130 ? (
         <div className="shadow-md bg-white h-20">
-          <div className="container m-auto flex items-center h-full navbar_btn">
-            <div className="flex-1">
+          <div className="container m-auto flex items-center justify-between h-full navbar_btn">
+            <div className="">
               <Link to="/">
-                <div className="navbar_logo">Serag</div>
+                <div className="navbar_logo text-3xl font-bold tracking-wider text-orange-500">Serag</div>
               </Link>
             </div>
             <div className="flex items-center gap-8">
@@ -175,7 +175,7 @@ const Navbar = () => {
                 </label>
                 <div
                   tabIndex={0}
-                  className="z-[1] card card-compact dropdown-content w-60 shadow border border-primary bg-white rounded-md mt-8 overflow-y-auto max-h-[80vh]"
+                  className="z-[1] card card-compact dropdown-content w-60 shadow border bg-white rounded-md mt-8 overflow-y-auto max-h-[80vh]"
                 >
                   <div className="card-body">
                     {cartCount > 0 && (
@@ -251,14 +251,14 @@ const Navbar = () => {
                   )}
                   <Link
                     to="/user"
-                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-gray-200"
                   >
                     <FaUser className="text-sm" />
                     <span>Profile</span>
                   </Link>
                   <Link
                     to="/wishlist"
-                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-gray-200"
                   >
                     <FaHeart className="text-sm" />
                     <span>Wishlist</span>
@@ -272,7 +272,7 @@ const Navbar = () => {
                     <Modal
                       modalConfirmFunction={handleLogout}
                       modalText={
-                        <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                        <div className="p-1 flex items-center gap-2 rounded-md hover:bg-gray-200 w-full">
                           <FaSignOutAlt className="text-sm" />
                           <span>Logout</span>
                         </div>
@@ -305,7 +305,7 @@ const Navbar = () => {
           <div className="container m-auto flex items-center h-full navbar_btn">
             <div className="flex-1">
               <Link to="/">
-                <div className="navbar_logo">Serag</div>
+                <div className="navbar_logo text-3xl font-bold tracking-wider text-orange-500">Serag</div>
               </Link>
             </div>
             <div className="flex items-center gap-8">
@@ -322,7 +322,7 @@ const Navbar = () => {
                 </label>
                 <div
                   tabIndex={0}
-                  className="z-[1] card card-compact dropdown-content w-60 shadow border border-primary bg-white rounded-md mt-8 overflow-y-auto max-h-[80vh]"
+                  className="z-[1] card card-compact dropdown-content w-60 shadow bg-white rounded-md mt-8 overflow-y-auto max-h-[80vh]"
                 >
                   <div className="card-body">
                     {cartCount > 0 && (
@@ -398,14 +398,14 @@ const Navbar = () => {
                   )}
                   <Link
                     to="/user"
-                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-gray-200"
                   >
                     <FaUser className="text-sm" />
                     <span>Profile</span>
                   </Link>
                   <Link
                     to="/wishlist"
-                    className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100"
+                    className="p-1 flex items-center gap-2 rounded-md hover:bg-gray-200"
                   >
                     <FaHeart className="text-sm" />
                     <span>Wishlist</span>
@@ -419,7 +419,7 @@ const Navbar = () => {
                     <Modal
                       modalConfirmFunction={handleLogout}
                       modalText={
-                        <div className="p-1 flex items-center gap-2 rounded-md hover:bg-emerald-100 w-full">
+                        <div className="p-1 flex items-center gap-2 rounded-md hover:bg-gray-200 w-full">
                           <FaSignOutAlt className="text-sm" />
                           <span>Logout</span>
                         </div>

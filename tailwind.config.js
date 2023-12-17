@@ -6,12 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#00b96b',
-        primaryHover: '#03c564',
+        primary: '#F97316',
+        primaryHover: '#F3590E',
         white: '#ffffff'
       },
       boxShadow: {
         'currentShadow': 'rgba(100, 100, 110, 0.3) 0px 8px 10px 0px',
+        'cardShadow' : '0 0 10px rgba(0, 0, 0, 0.2)',
       }
     },
   },

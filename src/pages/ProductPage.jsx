@@ -5,6 +5,7 @@ import StarRating from "../components/StarRating";
 import Loading from "../components/Loading";
 import { FaShoppingCart } from "react-icons/fa";
 import QuantityButton from "../components/QuantityButton";
+import Breadcrumbs from "../components/Breadcrumbs"
 
 const ProductPage = () => {
   const { addToCart, handleRemoveFromCart, products, cart } = useContext(StateContext);
@@ -18,24 +19,30 @@ const ProductPage = () => {
     setProduct(updatedProduct);
   }, [id, products, cart]);
 
+  useEffect(() => {
+    console.log(">>>", product)
+  },[product])
+
+
   if (!product) {
     return <Loading />;
   }
 
   return (
     <div className="py-4 container m-auto">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="flex flex-col gap-4 col-span-1">
-          <div className="p-4 bg-white h-80 border border-primary flex items-center justify-center rounded-xl">
+      <Breadcrumbs product={product} />
+      <div className="flex items-start gap-4 mt-2">
+        <div className="flex flex-col gap-4">
+          <div className="p-4 bg-white w-60 h-60 border flex items-center justify-center rounded-md">
             <img
               src={product.image}
               alt="product_img"
-              className="h-full w-auto"
+              className="w-full h-full object-contain"
             />
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 col-span-2">
+        <div className="flex flex-col gap-4">
           <h4 className="text-lg">{product.title}</h4>
           <h3 className="text-2xl font-semibold">{product.price}</h3>
           <p className="text-sm text-gray-500">{product.description}</p>

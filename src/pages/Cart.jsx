@@ -25,7 +25,7 @@ const Cart = () => {
             {cart.length === 0 ? (
               <div className="flex flex-col items-center gap-6">
                 <div className="w-24 h-24">
-                  <img src={emptyCart} alt="empty_cart" />
+                  <img src={emptyCart} alt="empty_cart" className="object-contain" />
                 </div>
                 <p>Your cart is empty!</p>
                 <small>
